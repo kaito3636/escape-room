@@ -11,18 +11,12 @@
 <style>
 :root{
   --bg:#0a0a0f;
-  --wall-top:#3d3a48;
-  --wall-bot:#241f2c;
-  --floor-1:#2a2230;
-  --floor-2:#1a1420;
   --ink:#e8e4d8;
   --gold:#ffd166;
   --gold-deep:#f4a52d;
   --red:#ef476f;
   --green:#06d6a0;
   --blue:#4cc9f0;
-  --wood:#7a5a3a;
-  --wood-dark:#3d2818;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{
@@ -51,7 +45,6 @@ html,body{
   }
   body{background:#050508}
 }
-/* ───── HUD ───── */
 .hud{
   position:absolute;
   top:0;left:0;right:0;
@@ -75,9 +68,7 @@ html,body{
   box-shadow:0 0 12px rgba(239,71,111,.4);
   text-shadow:0 0 8px var(--red);
 }
-.timer-display.warning{
-  animation:timerWarn .5s ease-in-out infinite;
-}
+.timer-display.warning{animation:timerWarn .5s ease-in-out infinite}
 @keyframes timerWarn{
   0%,100%{box-shadow:0 0 12px rgba(239,71,111,.4)}
   50%{box-shadow:0 0 28px rgba(239,71,111,1)}
@@ -95,19 +86,8 @@ html,body{
   text-shadow:0 0 6px var(--gold);
 }
 .key-icon{font-size:14px}
-/* ───── 部屋 SVG ───── */
-.room{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-}
-.room-svg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-}
-/* ───── インタラクティブ・オブジェクト ───── */
+.room{position:absolute;inset:0;overflow:hidden}
+.room-svg{position:absolute;inset:0;width:100%;height:100%}
 .obj{
   position:absolute;
   cursor:pointer;
@@ -155,16 +135,21 @@ html,body{
   pointer-events:none;
 }
 .obj.solved .obj-label{color:#555;text-shadow:1px 1px 0 #000}
-/* オブジェクト位置 */
-.obj-clock{top:8%;left:50%;transform:translateX(-50%);width:70px;height:70px}
-.obj-clock:not(.solved):hover{transform:translateX(-50%) scale(1.05)}
 .obj-phone{top:42%;left:6%;width:55px;height:55px}
 .obj-pc{top:46%;left:50%;transform:translateX(-50%);width:90px;height:60px}
 .obj-pc:not(.solved):hover{transform:translateX(-50%) scale(1.05)}
 .obj-cabinet{top:36%;right:6%;width:70px;height:90px}
-.obj-door{bottom:30%;left:50%;transform:translateX(-50%);width:90px;height:110px}
-.obj-door:not(.solved):hover{transform:translateX(-50%) scale(1.05)}
-/* ───── オープニング ───── */
+.obj-chair{bottom:18%;left:12%;width:60px;height:70px}
+.obj-door{bottom:30%;left:50%;transform:translateX(-50%);width:90px;height:110px;cursor:default}
+.obj-door:not(.solved):hover{transform:translateX(-50%);filter:none}
+.obj-door.unlocked{cursor:pointer}
+.obj-door.unlocked:hover{transform:translateX(-50%) scale(1.05);filter:brightness(1.4) drop-shadow(0 0 20px var(--gold))}
+.obj-door.unlocked{animation:doorReady 1.5s ease-in-out infinite}
+@keyframes doorReady{
+  0%,100%{filter:drop-shadow(0 0 8px var(--gold))}
+  50%{filter:drop-shadow(0 0 20px var(--gold)) brightness(1.2)}
+}
+/* オープニング */
 .opening{
   position:absolute;
   inset:0;
@@ -245,7 +230,7 @@ html,body{
   transform:translateY(3px);
   box-shadow:0 2px 0 #000,0 4px 10px rgba(0,0,0,.6);
 }
-/* ───── 問題モーダル ───── */
+/* モーダル */
 .modal-overlay{
   position:absolute;
   inset:0;
@@ -312,11 +297,7 @@ html,body{
   justify-content:center;
   transition:all .15s;
 }
-.modal-close:hover{
-  background:var(--red);
-  border-color:var(--red);
-  color:#fff;
-}
+.modal-close:hover{background:var(--red);border-color:var(--red);color:#fff}
 .modal-body{padding:18px 18px 20px}
 .modal-scene{
   background:rgba(255,209,102,.07);
@@ -330,7 +311,6 @@ html,body{
   white-space:pre-line;
 }
 .modal-scene .em{color:var(--gold)}
-.modal-scene .red{color:var(--red)}
 .modal-q{
   font-size:14px;
   font-weight:900;
@@ -340,11 +320,7 @@ html,body{
   padding-left:10px;
   border-left:3px solid var(--red);
 }
-.modal-choices{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
+.modal-choices{display:flex;flex-direction:column;gap:7px}
 .modal-choice{
   background:rgba(255,255,255,.05);
   border:2px solid rgba(255,209,102,.4);
@@ -388,10 +364,7 @@ html,body{
   animation:wrongShake .4s;
 }
 .modal-choice.wrong .choice-num{color:var(--red)}
-@keyframes correctPulse{
-  0%,100%{filter:brightness(1)}
-  50%{filter:brightness(1.5)}
-}
+@keyframes correctPulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.5)}}
 @keyframes wrongShake{
   0%,100%{transform:translateX(0)}
   20%{transform:translateX(-6px)}
@@ -414,22 +387,9 @@ html,body{
   from{transform:translateY(10px);opacity:0}
   to{transform:translateY(0);opacity:1}
 }
-.modal-result.success{
-  background:rgba(6,214,160,.1);
-  border-color:var(--green);
-  color:var(--green);
-}
-.modal-result.fail{
-  background:rgba(239,71,111,.1);
-  border-color:var(--red);
-  color:var(--red);
-}
-.result-title{
-  font-size:13px;
-  font-weight:900;
-  margin-bottom:6px;
-  letter-spacing:.05em;
-}
+.modal-result.success{background:rgba(6,214,160,.1);border-color:var(--green);color:var(--green)}
+.modal-result.fail{background:rgba(239,71,111,.1);border-color:var(--red);color:var(--red)}
+.result-title{font-size:13px;font-weight:900;margin-bottom:6px;letter-spacing:.05em}
 .result-text{color:var(--ink);font-size:11px}
 .modal-continue{
   width:100%;
@@ -445,11 +405,7 @@ html,body{
   box-shadow:0 4px 0 #000;
   transition:all .1s;
 }
-.modal-continue:active{
-  transform:translateY(2px);
-  box-shadow:0 2px 0 #000;
-}
-/* ───── 鍵獲得演出 ───── */
+.modal-continue:active{transform:translateY(2px);box-shadow:0 2px 0 #000}
 .key-pop{
   position:absolute;
   top:50%;left:50%;
@@ -459,9 +415,7 @@ html,body{
   pointer-events:none;
   filter:drop-shadow(0 0 30px var(--gold));
 }
-.key-pop.show{
-  animation:keyPop 1.4s ease-out forwards;
-}
+.key-pop.show{animation:keyPop 1.4s ease-out forwards}
 @keyframes keyPop{
   0%{transform:translate(-50%,-50%) scale(0) rotate(-180deg);opacity:0}
   20%{transform:translate(-50%,-50%) scale(1.5) rotate(20deg);opacity:1}
@@ -469,7 +423,6 @@ html,body{
   80%{transform:translate(-50%,-50%) scale(1.2) rotate(0deg);opacity:1}
   100%{transform:translate(-50%,-150%) scale(.6) rotate(0deg);opacity:0}
 }
-/* ───── ヒントバナー ───── */
 .hint-banner{
   position:absolute;
   bottom:14px;left:14px;right:14px;
@@ -485,7 +438,15 @@ html,body{
   box-shadow:0 0 16px rgba(255,209,102,.2);
 }
 .hint-banner .em{color:var(--gold)}
-/* ───── エンディング ───── */
+.hint-banner.unlock{
+  border-color:var(--green);
+  color:var(--green);
+  animation:unlockPulse 1s ease-in-out infinite;
+}
+@keyframes unlockPulse{
+  0%,100%{box-shadow:0 0 16px rgba(6,214,160,.4)}
+  50%{box-shadow:0 0 28px rgba(6,214,160,.9)}
+}
 .ending{
   position:absolute;
   inset:0;
@@ -507,10 +468,7 @@ html,body{
   filter:drop-shadow(0 4px 0 #000);
   animation:endIcon 1.5s ease-in-out infinite;
 }
-@keyframes endIcon{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-8px)}
-}
+@keyframes endIcon{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .end-title{
   font-family:'DotGothic16',monospace;
   font-size:clamp(34px,9vw,50px);
@@ -539,11 +497,13 @@ html,body{
 .end-message .blame{color:var(--red)}
 .end-stats{
   display:flex;
-  gap:18px;
+  gap:14px;
   margin-bottom:24px;
   font-family:'DotGothic16',monospace;
   font-size:11px;
   color:var(--ink);
+  flex-wrap:wrap;
+  justify-content:center;
 }
 .end-stat{
   background:rgba(0,0,0,.6);
@@ -558,12 +518,7 @@ html,body{
   font-weight:900;
   margin-bottom:2px;
 }
-.end-actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
+.end-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .btn-end{
   background:var(--gold);
   color:#000;
@@ -582,7 +537,7 @@ html,body{
 <body>
 <div class="app">
 
-  <!-- ───── オープニング ───── -->
+  <!-- オープニング -->
   <div class="opening" id="opening">
     <div class="op-title">会議室からの脱出</div>
     <div class="op-sub">ESCAPE FROM THE MEETING ROOM</div>
@@ -591,38 +546,34 @@ html,body{
       <p>20XX年4月1日 午前8時。</p>
       <p>新卒社員のあなたは、配属初日。指定された<span class="em">第3会議室</span>に通された瞬間──カチャリ、と背後で施錠の音がした。</p>
       <p>机の上に置かれた一枚の紙。</p>
-      <p>『これは<span class="em">最終マナー研修</span>です。室内のあらゆる物に隠された<span class="em">10の問いに正解</span>し、<span class="em">10分以内</span>に脱出しなさい。』</p>
-      <p>『5つの鍵を集めて扉を開けよ。<span class="red">失敗すれば内定取消です。</span>』</p>
+      <p>『これは<span class="em">最終マナー研修</span>です。室内のあらゆる物に隠された問いに正解し、<span class="em">10分以内</span>に脱出しなさい。』</p>
+      <p>『<span class="em">4つの鍵</span>を集めて扉を開けよ。<span class="red">失敗すれば内定取消です。</span>』</p>
     </div>
 
     <div class="op-rules">
       ▼ 操作 ▼<br>
       <span class="em">光るオブジェクト</span>をタップで謎解き開始<br>
-      各場所に<span class="em">2問</span>、合計<span class="em">10問</span>。全問正解で鍵獲得<br>
+      4箇所、合計<span class="em">6問</span>。全問正解で鍵獲得<br>
       不正解は<span class="em">時間-30秒</span>のペナルティ
     </div>
 
     <button class="btn-start" onclick="startGame()">入室する</button>
   </div>
 
-  <!-- ───── 部屋画面 ───── -->
+  <!-- 部屋画面 -->
   <div class="room" id="room">
 
-    <!-- 部屋のSVG -->
     <svg class="room-svg" viewBox="0 0 400 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <!-- 床のグラデ -->
         <linearGradient id="floorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="#2a2030"/>
           <stop offset="100%" stop-color="#0a0612"/>
         </linearGradient>
-        <!-- 壁のグラデ -->
         <radialGradient id="wallGrad" cx="50%" cy="40%" r="70%">
           <stop offset="0%" stop-color="#3d3548"/>
           <stop offset="60%" stop-color="#252030"/>
           <stop offset="100%" stop-color="#0e0a18"/>
         </radialGradient>
-        <!-- ライトのグロー -->
         <radialGradient id="lightGlow" cx="50%" cy="0%" r="60%">
           <stop offset="0%" stop-color="rgba(255,240,180,0.4)"/>
           <stop offset="50%" stop-color="rgba(255,240,180,0.1)"/>
@@ -632,19 +583,16 @@ html,body{
           <rect width="40" height="40" fill="#1a0f20"/>
           <path d="M 0 0 L 40 40 M 40 0 L 0 40" stroke="#2a1830" stroke-width="0.5"/>
         </pattern>
+        <radialGradient id="cornerShadow" cx="50%" cy="100%" r="80%">
+          <stop offset="0%" stop-color="rgba(0,0,0,0)"/>
+          <stop offset="100%" stop-color="rgba(0,0,0,0.7)"/>
+        </radialGradient>
       </defs>
 
-      <!-- 背景の壁 -->
       <rect width="400" height="700" fill="url(#wallGrad)"/>
-
-      <!-- 天井のライトグロー -->
       <ellipse cx="200" cy="0" rx="240" ry="180" fill="url(#lightGlow)"/>
-
-      <!-- 天井の梁 -->
       <line x1="0" y1="50" x2="400" y2="50" stroke="#1a1525" stroke-width="3"/>
       <line x1="0" y1="55" x2="400" y2="55" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-
-      <!-- 蛍光灯 -->
       <rect x="120" y="8" width="160" height="14" rx="2" fill="#15101e" stroke="#2a1f30" stroke-width="2"/>
       <rect x="125" y="11" width="150" height="8" rx="1" fill="#fff8d8" opacity="0.95">
         <animate attributeName="opacity" values="0.95;0.95;0.4;0.95;0.6;0.95" dur="5s" repeatCount="indefinite"/>
@@ -685,36 +633,29 @@ html,body{
         <text x="10" y="63" fill="#1a2840" font-size="6" font-family="sans-serif">・打ち上げ会場確認</text>
       </g>
 
-      <!-- 床 (パース効果) -->
+      <!-- 床 -->
       <polygon points="0,440 400,440 400,700 0,700" fill="url(#floorGrad)"/>
       <polygon points="0,440 400,440 380,700 20,700" fill="url(#carpetPattern)" opacity="0.6"/>
-
-      <!-- 床のライン (奥行き) -->
       <line x1="200" y1="440" x2="0" y2="700" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
       <line x1="200" y1="440" x2="400" y2="700" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
       <line x1="0" y1="510" x2="400" y2="510" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
       <line x1="0" y1="580" x2="400" y2="580" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-      <line x1="0" y1="640" x2="400" y2="640" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
 
-      <!-- 中央の会議テーブル -->
+      <!-- テーブル -->
       <g>
-        <!-- テーブル天板 -->
         <ellipse cx="200" cy="490" rx="170" ry="38" fill="#3a2818" stroke="#1a0f08" stroke-width="3"/>
         <ellipse cx="200" cy="487" rx="166" ry="35" fill="#5a3825"/>
         <ellipse cx="200" cy="486" rx="160" ry="30" fill="#6b4423"/>
-        <!-- 木目 -->
         <ellipse cx="200" cy="486" rx="140" ry="22" fill="none" stroke="#4a2c10" stroke-width="0.8" opacity="0.5"/>
         <ellipse cx="200" cy="486" rx="100" ry="14" fill="none" stroke="#4a2c10" stroke-width="0.8" opacity="0.5"/>
         <ellipse cx="200" cy="486" rx="60" ry="8" fill="none" stroke="#4a2c10" stroke-width="0.8" opacity="0.5"/>
-        <!-- ハイライト -->
         <ellipse cx="180" cy="478" rx="80" ry="6" fill="#8b5a33" opacity="0.4"/>
-        <!-- テーブル脚 (見えてる部分) -->
         <rect x="60" y="510" width="8" height="60" fill="#1a0f08"/>
         <rect x="332" y="510" width="8" height="60" fill="#1a0f08"/>
         <rect x="196" y="525" width="8" height="50" fill="#0a0608"/>
       </g>
 
-      <!-- 椅子 (奥) -->
+      <!-- 奥の椅子 -->
       <g>
         <ellipse cx="100" cy="465" rx="22" ry="6" fill="#1a0f18"/>
         <rect x="84" y="438" width="32" height="28" rx="3" fill="#2a1828" stroke="#0a0408" stroke-width="2"/>
@@ -722,22 +663,15 @@ html,body{
         <rect x="284" y="438" width="32" height="28" rx="3" fill="#2a1828" stroke="#0a0408" stroke-width="2"/>
       </g>
 
-      <!-- 椅子 (手前) -->
+      <!-- 手前右の椅子 -->
       <g>
-        <rect x="50" y="595" width="50" height="55" rx="4" fill="#1a1020" stroke="#000" stroke-width="2"/>
-        <rect x="55" y="600" width="40" height="32" rx="2" fill="#2a1830"/>
         <rect x="300" y="595" width="50" height="55" rx="4" fill="#1a1020" stroke="#000" stroke-width="2"/>
         <rect x="305" y="600" width="40" height="32" rx="2" fill="#2a1830"/>
       </g>
 
-      <!-- 部屋の隅の影 -->
-      <radialGradient id="cornerShadow" cx="50%" cy="100%" r="80%">
-        <stop offset="0%" stop-color="rgba(0,0,0,0)"/>
-        <stop offset="100%" stop-color="rgba(0,0,0,0.7)"/>
-      </radialGradient>
       <rect width="400" height="700" fill="url(#cornerShadow)" pointer-events="none"/>
 
-      <!-- 観葉植物 (左隅) -->
+      <!-- 観葉植物 -->
       <g transform="translate(8,560)">
         <ellipse cx="20" cy="100" rx="22" ry="5" fill="#1a0f08"/>
         <path d="M 8 100 L 12 60 L 28 60 L 32 100 Z" fill="#3a2818" stroke="#1a0f08" stroke-width="2"/>
@@ -753,30 +687,12 @@ html,body{
       <div class="timer-display" id="timer">10:00</div>
       <div class="keys-display">
         <span class="key-icon">🔑</span>
-        <span id="keysCount">0</span>/5
+        <span id="keysCount">0</span>/4
       </div>
     </div>
 
-    <!-- インタラクティブ・オブジェクト -->
-    <!-- 壁掛け時計 -->
-    <div class="obj obj-clock" data-id="0" onclick="openLocation(0)">
-      <svg viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="35" cy="35" r="30" fill="#f4f0e0" stroke="#1a0f08" stroke-width="3"/>
-        <circle cx="35" cy="35" r="28" fill="none" stroke="#3a2818" stroke-width="1"/>
-        <text x="35" y="14" font-size="6" text-anchor="middle" fill="#1a0f08" font-weight="bold">12</text>
-        <text x="56" y="38" font-size="6" text-anchor="middle" fill="#1a0f08" font-weight="bold">3</text>
-        <text x="35" y="62" font-size="6" text-anchor="middle" fill="#1a0f08" font-weight="bold">6</text>
-        <text x="14" y="38" font-size="6" text-anchor="middle" fill="#1a0f08" font-weight="bold">9</text>
-        <line x1="35" y1="35" x2="35" y2="18" stroke="#1a0f08" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="35" y1="35" x2="48" y2="35" stroke="#1a0f08" stroke-width="2" stroke-linecap="round"/>
-        <line x1="35" y1="35" x2="35" y2="55" stroke="#ef476f" stroke-width="1.5" stroke-linecap="round"/>
-        <circle cx="35" cy="35" r="2" fill="#1a0f08"/>
-      </svg>
-      <span class="obj-label">壁掛け時計</span>
-    </div>
-
     <!-- 電話機 -->
-    <div class="obj obj-phone" data-id="1" onclick="openLocation(1)">
+    <div class="obj obj-phone" data-id="0" onclick="openLocation(0)">
       <svg viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
         <rect x="6" y="22" width="43" height="28" rx="3" fill="#1a1820" stroke="#000" stroke-width="2"/>
         <rect x="10" y="26" width="35" height="10" rx="1" fill="#3a3340"/>
@@ -793,10 +709,9 @@ html,body{
       <span class="obj-label">電話機</span>
     </div>
 
-    <!-- ノートPC (テーブル上) -->
-    <div class="obj obj-pc" data-id="2" onclick="openLocation(2)">
+    <!-- ノートPC -->
+    <div class="obj obj-pc" data-id="1" onclick="openLocation(1)">
       <svg viewBox="0 0 90 60" xmlns="http://www.w3.org/2000/svg">
-        <!-- 画面 -->
         <rect x="10" y="4" width="70" height="44" rx="2" fill="#1a1820" stroke="#000" stroke-width="2"/>
         <rect x="13" y="7" width="64" height="38" fill="#0a3a5a"/>
         <rect x="16" y="10" width="58" height="3" fill="#1a4a6a"/>
@@ -806,7 +721,6 @@ html,body{
         <rect x="16" y="30" width="45" height="2" fill="#ef476f"/>
         <rect x="16" y="34" width="30" height="2" fill="#2a5a7a"/>
         <rect x="16" y="38" width="40" height="2" fill="#2a5a7a"/>
-        <!-- キーボード部分 -->
         <polygon points="6,48 84,48 88,56 2,56" fill="#2a2530" stroke="#000" stroke-width="2"/>
         <rect x="35" y="51" width="20" height="1.5" fill="#555"/>
       </svg>
@@ -814,44 +728,48 @@ html,body{
     </div>
 
     <!-- 書類棚 -->
-    <div class="obj obj-cabinet" data-id="3" onclick="openLocation(3)">
+    <div class="obj obj-cabinet" data-id="2" onclick="openLocation(2)">
       <svg viewBox="0 0 70 90" xmlns="http://www.w3.org/2000/svg">
         <rect x="4" y="4" width="62" height="82" fill="#3a2818" stroke="#1a0f08" stroke-width="3"/>
-        <!-- 引き出し1 -->
         <rect x="8" y="8" width="54" height="22" fill="#5a3825" stroke="#1a0f08" stroke-width="1.5"/>
         <rect x="30" y="17" width="10" height="3" fill="#2a1810"/>
-        <!-- 引き出し2 -->
         <rect x="8" y="32" width="54" height="22" fill="#5a3825" stroke="#1a0f08" stroke-width="1.5"/>
         <rect x="30" y="41" width="10" height="3" fill="#2a1810"/>
-        <!-- 引き出し3 -->
         <rect x="8" y="56" width="54" height="26" fill="#5a3825" stroke="#1a0f08" stroke-width="1.5"/>
         <rect x="30" y="67" width="10" height="3" fill="#2a1810"/>
-        <!-- ハイライト -->
         <line x1="6" y1="6" x2="64" y2="6" stroke="#7a5538" stroke-width="1"/>
       </svg>
       <span class="obj-label">書類棚</span>
     </div>
 
+    <!-- 椅子（席次） -->
+    <div class="obj obj-chair" data-id="3" onclick="openLocation(3)">
+      <svg viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="30" cy="65" rx="22" ry="4" fill="#000" opacity="0.6"/>
+        <rect x="10" y="35" width="40" height="28" rx="3" fill="#3a2030" stroke="#000" stroke-width="2"/>
+        <rect x="14" y="39" width="32" height="20" rx="2" fill="#5a3045"/>
+        <rect x="8" y="6" width="44" height="32" rx="4" fill="#3a2030" stroke="#000" stroke-width="2"/>
+        <rect x="12" y="10" width="36" height="24" rx="3" fill="#5a3045"/>
+        <line x1="20" y1="14" x2="20" y2="30" stroke="#2a1020" stroke-width="1"/>
+        <line x1="30" y1="14" x2="30" y2="30" stroke="#2a1020" stroke-width="1"/>
+        <line x1="40" y1="14" x2="40" y2="30" stroke="#2a1020" stroke-width="1"/>
+      </svg>
+      <span class="obj-label">応接椅子</span>
+    </div>
+
     <!-- 扉 -->
-    <div class="obj obj-door" data-id="4" onclick="openLocation(4)">
+    <div class="obj obj-door" id="doorObj" data-id="4" onclick="tryEscape()">
       <svg viewBox="0 0 90 110" xmlns="http://www.w3.org/2000/svg">
-        <!-- 枠 -->
         <rect x="4" y="4" width="82" height="102" fill="#1a0f08" stroke="#000" stroke-width="2"/>
-        <!-- 扉本体 -->
         <rect x="8" y="8" width="74" height="94" fill="#5a3825" stroke="#1a0f08" stroke-width="1"/>
-        <!-- 装飾パネル -->
         <rect x="14" y="14" width="62" height="36" fill="none" stroke="#3a2818" stroke-width="2"/>
         <rect x="14" y="56" width="62" height="40" fill="none" stroke="#3a2818" stroke-width="2"/>
-        <!-- パネル内 -->
         <rect x="18" y="18" width="54" height="28" fill="#4a2c18"/>
         <rect x="18" y="60" width="54" height="32" fill="#4a2c18"/>
-        <!-- ドアノブ -->
         <circle cx="74" cy="60" r="3.5" fill="#ffd166" stroke="#000" stroke-width="1.5"/>
         <circle cx="74" cy="60" r="1.5" fill="#000"/>
-        <!-- 鍵穴 -->
         <rect x="71" y="68" width="6" height="8" fill="#000"/>
         <circle cx="74" cy="71" r="1.5" fill="#ffd166"/>
-        <!-- EXITサイン -->
         <rect x="22" y="2" width="46" height="6" fill="#ef476f" stroke="#000" stroke-width="1"/>
         <text x="45" y="7" font-size="5" text-anchor="middle" fill="#fff" font-weight="bold">EXIT</text>
       </svg>
@@ -859,17 +777,17 @@ html,body{
     </div>
 
     <div class="hint-banner" id="hint">
-      <span class="em">▼</span> 室内の<span class="em">5つの場所</span>を調べて謎を解け <span class="em">▼</span>
+      <span class="em">▼</span> 室内の<span class="em">4つの場所</span>を調べて鍵を集めよ <span class="em">▼</span>
     </div>
   </div>
 
-  <!-- ───── 問題モーダル ───── -->
+  <!-- 問題モーダル -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
       <div class="modal-header">
         <div class="modal-loc">
-          <span class="icon" id="modalIcon">🕗</span>
-          <span id="modalLoc">壁掛け時計</span>
+          <span class="icon" id="modalIcon">☎️</span>
+          <span id="modalLoc">電話機</span>
           <span class="progress" id="modalProgress">Q1/2</span>
         </div>
         <button class="modal-close" onclick="closeModal()">✕</button>
@@ -887,10 +805,9 @@ html,body{
     </div>
   </div>
 
-  <!-- 鍵獲得演出 -->
   <div class="key-pop" id="keyPop">🔑</div>
 
-  <!-- ───── エンディング ───── -->
+  <!-- エンディング -->
   <div class="ending" id="ending">
     <div class="end-icon" id="endIcon">🎉</div>
     <div class="end-title" id="endTitle">脱出成功!</div>
@@ -918,59 +835,15 @@ html,body{
 </div>
 
 <script>
-// 各場所に2問ずつ、合計10問
 const locations=[
   {
     id:0,
-    icon:'🕗',
-    name:'壁掛け時計',
-    questions:[
-      {
-        scene:'時計の文字盤に走り書きのメモが貼られている。\n『始業前の心得を答えよ』',
-        q:"出社時刻として最も適切なのはどれ？",
-        choices:[
-          "始業時刻ちょうどに席につく",
-          "始業の5〜10分前に到着し、業務開始の準備をしておく",
-          "始業の30分以上前に到着して仕事を始める",
-          "余裕を持って始業の1時間前には到着する"
-        ],
-        answer:1,
-        explanation:"始業の5〜10分前に到着し、定時から即座に業務を始められる状態にしておくのが基本。早すぎる出社は相手の準備に迷惑をかけたり、サービス残業を強いる空気を作る場合もある。"
-      },
-      {
-        scene:'時計の裏側にもう一枚メモが──\n『遅刻が確実なときの対応は？』',
-        q:"電車遅延で遅刻が確実になった時、最初にすべき行動は？",
-        choices:[
-          "とりあえず急いで会社に向かう",
-          "駅に着いてから連絡する",
-          "遅刻が分かった時点で、電話で上司に連絡し到着予定を伝える",
-          "メールやチャットで遅刻連絡だけ送っておく"
-        ],
-        answer:2,
-        explanation:"遅刻が確定した時点で『電話で』直属の上司に連絡し、理由と到着予定時刻を伝えるのが鉄則。メールやチャットだけでは気付かれない可能性があり、緊急時は声で伝えるのが基本。"
-      }
-    ]
-  },
-  {
-    id:1,
     icon:'☎️',
     name:'電話機',
     questions:[
       {
-        scene:'突然、机の電話が鳴り響いた。\n『3コール以内に正しく出よ』',
-        q:"会社の電話に出る時の第一声として最も適切なのは？",
-        choices:[
-          "もしもし、〇〇です",
-          "はい、〇〇株式会社でございます",
-          "お電話ありがとうございます、〇〇です",
-          "はい、何でしょうか"
-        ],
-        answer:1,
-        explanation:"会社の電話で『もしもし』はNG。「はい、〇〇株式会社（部署名）でございます」と社名・部署名を名乗るのが基本。3コール以上待たせた場合は「お待たせいたしました」を加える。"
-      },
-      {
-        scene:'電話の相手が言った──\n『田中部長はいらっしゃいますか？』\nしかし田中部長は外出中だ。',
-        q:"自社の上司について取引先に伝える時、正しい言い方は？",
+        scene:'電話が鳴り、出ると相手が言った──\n『田中部長はいらっしゃいますか？』\nしかし田中部長は外出中だ。',
+        q:"取引先に自社の上司「田中部長」のことを伝える時、最も適切な言い方は？",
         choices:[
           "田中部長は外出されています",
           "田中はただいま外出しております",
@@ -983,38 +856,38 @@ const locations=[
     ]
   },
   {
-    id:2,
+    id:1,
     icon:'💻',
     name:'ノートPC',
     questions:[
       {
-        scene:'PCの画面に、書きかけのメールが──\n『取引先への謝罪メールを完成させよ』',
-        q:"クライアントへの謝罪メールの件名として最も適切なのは？",
+        scene:'PCに書きかけのメール画面。\n『複数の取引先に同じ内容を送りたい』\n──CCとBCC、どちらを使う？',
+        q:"競合関係にある複数の取引先に同じ案内メールを送る時、正しい宛先設定は？",
         choices:[
-          "ごめんなさい",
-          "【お詫び】納品遅延のご連絡",
-          "重要！至急ご確認ください",
-          "お世話になっております"
+          "全員をTOに入れて一斉送信",
+          "全員をCCに入れて送信",
+          "BCCに全員を入れて送信し、お互いのアドレスが見えないようにする",
+          "面倒なので一人ずつ個別に送る"
         ],
-        answer:1,
-        explanation:"件名は【】で内容を分類し、要件を一目で分かるように。「【お詫び】〇〇の件」のように何についての謝罪かが明確にわかる件名が理想。「重要」「至急」を多用するのは逆効果。"
+        answer:2,
+        explanation:"互いに面識のない／競合関係にある相手に一斉送信する時は必ずBCCを使う。CCに入れると全員のアドレスが互いに見えてしまい、情報漏洩や信頼問題に発展する。CCは「情報共有・返信不要」、BCCは「アドレスを隠したい場合」と覚える。"
       },
       {
-        scene:'もう一通、CCに上司を入れる必要がある。\n『CCの正しい使い方を答えよ』',
-        q:"メールのCCの使い方として正しいのは？",
+        scene:'続いて、上司への依頼メールを書く。\n『キツくならないように頼みたい』\n──クッション言葉を使え。',
+        q:"上司に資料の確認をお願いするメール。最も適切な書き出しは？",
         choices:[
-          "返信が必要な人をCCに入れる",
-          "情報共有したい関係者をCCに入れ、本文中で「CCに上司を入れています」と明記",
-          "とりあえず関係しそうな人を全員CCに入れる",
-          "CCの人にも「ご返信ください」と書く"
+          "確認してください",
+          "確認お願いします",
+          "お忙しいところ恐れ入りますが、ご確認いただけますでしょうか",
+          "至急確認願います"
         ],
-        answer:1,
-        explanation:"CCは「情報共有のみ・返信不要」の人に使う。CCに誰を入れているかは本文中で明示するのがマナー。むやみに大勢をCCに入れるのは情報漏洩リスクや相手の負担増につながる。"
+        answer:2,
+        explanation:"依頼や断り、お願いの前にはクッション言葉を入れることで、相手への配慮と柔らかさが伝わる。代表的なクッション言葉：「恐れ入りますが」「お手数ですが」「お忙しいところ申し訳ございませんが」「差し支えなければ」など。"
       }
     ]
   },
   {
-    id:3,
+    id:2,
     icon:'🗄️',
     name:'書類棚',
     questions:[
@@ -1031,7 +904,7 @@ const locations=[
         explanation:"名刺は両手で胸の高さで受け取り「頂戴いたします」「お預かりいたします」と一言添えるのが基本。受け取った名刺は商談中はテーブル（または名刺入れ）の上に置き、すぐにしまわない。"
       },
       {
-        scene:'棚の奥に、整理された顧客リスト。\n『複数人と同時に名刺交換するときは？』',
+        scene:'棚の奥に、整理された顧客リスト。\n『複数人と同時に名刺交換する時は？』',
         q:"同時に複数の取引先と名刺交換する場合の正しい順序は？",
         choices:[
           "席に近い人から順番に",
@@ -1045,45 +918,34 @@ const locations=[
     ]
   },
   {
-    id:4,
-    icon:'🚪',
-    name:'扉',
+    id:3,
+    icon:'🪑',
+    name:'応接椅子',
     questions:[
       {
-        scene:'重厚な扉の前に立つ。鍵穴の上に金色の銘板。\n『入室時の作法を答えよ』',
-        q:"会議室や面接室に入室する際の正しいノックの回数は？",
+        scene:'椅子の背もたれに、メモが貼られている。\n『来客を案内する時、どこに座ってもらう？』',
+        q:"応接室で取引先のお客様を案内する時、上座（最も上位の席）はどこ？",
         choices:[
-          "1回（合図）",
-          "2回（トイレ確認）",
-          "3回（一般・親しい間柄）",
-          "4回（国際標準・ビジネス正式）"
-        ],
-        answer:3,
-        explanation:"国際的なプロトコルマナー（4回ノック）が正式。2回はトイレノック、3回は親しい間柄での簡易ノック、4回がビジネス正式とされる。日本でも面接や重要な場面では4回が推奨される。"
-      },
-      {
-        scene:'銘板にもう一行──\n『退室の作法を答えよ。これが最後の問いだ。』',
-        q:"商談終了後、退室する時の正しいマナーは？",
-        choices:[
-          "ドアの前で軽く会釈してすぐ退室",
-          "ドアを開けてから振り返り、「失礼いたします」と一礼してから退室",
-          "「お疲れさまでした」と言って退室",
-          "黙って退室するのが一番丁寧"
+          "入り口に最も近い席",
+          "入り口から最も遠い席",
+          "窓際の席",
+          "テレビ・ホワイトボードが見やすい席"
         ],
         answer:1,
-        explanation:"退室時はドアの前で相手の方を向き「失礼いたします」と一礼してからドアを開ける。ドアは音を立てず、相手に背を向けすぎない角度で閉める。最後の印象を決める重要な瞬間。"
+        explanation:"上座は入り口から最も遠い席。お客様や目上の方を上座にご案内するのが日本のビジネスマナー。逆に入り口に最も近い席は下座（案内する側＝自社の人間が座る席）。タクシーや会議室、エレベーターでも席次のルールがあるので合わせて覚えよう。"
       }
     ]
   }
 ];
 
 const TOTAL_TIME=600;
+const TOTAL_KEYS=4;
 let timeLeft=TOTAL_TIME;
 let timerInterval=null;
 let keysGained=0;
 let totalCorrect=0;
-let solved=[false,false,false,false,false];
-let locProgress=[0,0,0,0,0]; // 各場所で何問正解したか
+let solved=[false,false,false,false];
+let locProgress=[0,0,0,0];
 let currentLocId=null;
 let currentQIndex=0;
 let answered=false;
@@ -1098,11 +960,14 @@ function startGame(){
   timeLeft=TOTAL_TIME;
   keysGained=0;
   totalCorrect=0;
-  solved=[false,false,false,false,false];
-  locProgress=[0,0,0,0,0];
+  solved=[false,false,false,false];
+  locProgress=[0,0,0,0];
   gameActive=true;
   updateHUD();
   document.querySelectorAll('.obj').forEach(el=>el.classList.remove('solved'));
+  $('doorObj').classList.remove('unlocked');
+  $('hint').classList.remove('unlock');
+  $('hint').innerHTML='<span class="em">▼</span> 室内の<span class="em">4つの場所</span>を調べて鍵を集めよ <span class="em">▼</span>';
   startTimer();
 }
 
@@ -1129,7 +994,7 @@ function updateHUD(){
 function openLocation(id){
   if(!gameActive||solved[id])return;
   currentLocId=id;
-  currentQIndex=locProgress[id]; // 続きから or 最初から
+  currentQIndex=locProgress[id];
   showQuestion();
 }
 
@@ -1137,10 +1002,11 @@ function showQuestion(){
   answered=false;
   const loc=locations[currentLocId];
   const q=loc.questions[currentQIndex];
+  const totalQ=loc.questions.length;
 
   $('modalIcon').textContent=loc.icon;
   $('modalLoc').textContent=loc.name;
-  $('modalProgress').textContent='Q'+(currentQIndex+1)+'/2';
+  $('modalProgress').textContent=totalQ>1?'Q'+(currentQIndex+1)+'/'+totalQ:'';
   $('modalScene').innerHTML=q.scene.replace(/\n/g,'<br>');
   $('modalQ').textContent=q.q;
 
@@ -1164,6 +1030,7 @@ function selectChoice(idx){
   answered=true;
   const loc=locations[currentLocId];
   const q=loc.questions[currentQIndex];
+  const totalQ=loc.questions.length;
   const btns=document.querySelectorAll('.modal-choice');
   btns.forEach((b,i)=>{
     b.disabled=true;
@@ -1179,8 +1046,7 @@ function selectChoice(idx){
     $('resultTitle').textContent='✓ 正解！';
     $('resultText').textContent=q.explanation;
 
-    if(locProgress[currentLocId]>=2){
-      // この場所の鍵獲得！
+    if(locProgress[currentLocId]>=totalQ){
       keysGained++;
       solved[currentLocId]=true;
       $('resultTitle').textContent='✓ 正解！ 鍵を獲得した！';
@@ -1188,6 +1054,12 @@ function selectChoice(idx){
       setTimeout(()=>{
         document.querySelector('.obj[data-id="'+currentLocId+'"]').classList.add('solved');
         updateHUD();
+        // 全鍵集まったら扉を開けるようにする
+        if(keysGained>=TOTAL_KEYS){
+          $('doorObj').classList.add('unlocked');
+          $('hint').classList.add('unlock');
+          $('hint').innerHTML='<span class="em">★</span> 全ての鍵を獲得！ <span class="em">扉をタップして脱出せよ</span> <span class="em">★</span>';
+        }
       },800);
     }
   }else{
@@ -1198,22 +1070,18 @@ function selectChoice(idx){
     $('resultText').textContent=q.explanation;
   }
   $('modalContinue').style.display='block';
-  // ボタンのラベル切替
   const cont=$('modalContinue');
-  if(idx===q.answer && currentQIndex<1){
+  if(idx===q.answer && currentQIndex<totalQ-1){
     cont.textContent='次の問題へ →';
-  }else if(idx===q.answer && currentQIndex>=1){
-    cont.textContent='閉じる';
   }else{
-    cont.textContent='閉じる（再挑戦可）';
+    cont.textContent='閉じる';
   }
 }
 
 function nextOrClose(){
   const loc=locations[currentLocId];
-  const q=loc.questions[currentQIndex];
-  // 正解かつまだ次の問題があれば次へ
-  if(answered && locProgress[currentLocId]>currentQIndex && currentQIndex<1){
+  const totalQ=loc.questions.length;
+  if(answered && locProgress[currentLocId]>currentQIndex && currentQIndex<totalQ-1){
     currentQIndex++;
     showQuestion();
   }else{
@@ -1223,9 +1091,11 @@ function nextOrClose(){
 
 function closeModal(){
   $('modalOverlay').classList.remove('show');
-  // 全鍵集まったらクリア
-  if(keysGained>=5){
-    setTimeout(()=>gameOver(true),500);
+}
+
+function tryEscape(){
+  if(keysGained>=TOTAL_KEYS){
+    gameOver(true);
   }
 }
 
@@ -1245,14 +1115,14 @@ function gameOver(success){
   const m=Math.floor(timeLeft/60);
   const s=timeLeft%60;
   $('endTime').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-  $('endKeys').textContent=keysGained+'/5';
-  $('endCorrect').textContent=totalCorrect+'/10';
+  $('endKeys').textContent=keysGained+'/'+TOTAL_KEYS;
+  $('endCorrect').textContent=totalCorrect+'/6';
 
   if(success){
     $('endIcon').textContent='🎉';
     $('endTitle').textContent='脱出成功!';
     let praise;
-    if(timeLeft>=480 && totalCorrect===10)praise='伝説の新人爆誕！全問正解＆驚異のスピード脱出。君は将来の社長候補だ。';
+    if(timeLeft>=480 && totalCorrect===6)praise='伝説の新人爆誕！全問正解＆驚異のスピード脱出。君は将来の社長候補だ。';
     else if(timeLeft>=300)praise='見事な手際！基本マナーは完璧に身についている。明日から胸を張って働こう。';
     else praise='なんとか間に合った…！次はもっと余裕を持って挑戦してみよう。';
     $('endMessage').innerHTML='<p>『おめでとうございます。あなたは新卒研修を見事に突破しました。』</p><p>『明日から、本配属です。期待しています。』</p><p class="praise">── '+praise+'</p>';
@@ -1260,8 +1130,8 @@ function gameOver(success){
     $('endIcon').textContent='💀';
     $('endTitle').textContent='脱出失敗';
     let comment;
-    if(keysGained>=4)comment='あと一歩だった…！最後の壁を越えられなかった。リトライで完走を目指そう。';
-    else if(keysGained>=2)comment='基礎は分かっているが、抜けが多い。解説を読み返して再挑戦！';
+    if(keysGained>=3)comment='あと一歩だった…！最後の壁を越えられなかった。リトライで完走を目指そう。';
+    else if(keysGained>=1)comment='基礎は分かっているが、抜けが多い。解説を読み返して再挑戦！';
     else comment='ビジネスマナーの基礎から見直す必要がある。何度でも挑戦できる。';
     $('endMessage').innerHTML='<p>『時間切れです。あなたは脱出できませんでした。』</p><p>『──残念ながら、内定取消です。』</p><p class="blame">── '+comment+'</p>';
   }
@@ -1275,7 +1145,7 @@ function shareResult(){
   const m=Math.floor(timeLeft/60);
   const s=timeLeft%60;
   const time=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-  const text='【会議室からの脱出】鍵'+keysGained+'/5｜正答'+totalCorrect+'/10｜残り時間'+time+'\n'+location.href;
+  const text='【会議室からの脱出】鍵'+keysGained+'/'+TOTAL_KEYS+'｜正答'+totalCorrect+'/6｜残り時間'+time+'\n'+location.href;
   if(navigator.share){
     navigator.share({title:'会議室からの脱出',text:text,url:location.href}).catch(()=>{});
   }else{
