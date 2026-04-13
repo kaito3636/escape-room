@@ -1,665 +1,1286 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ビジネスマナー研修｜新卒のための実践問答 全10問</title>
+<title>会議室からの脱出｜ビジネスマナー研修</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@500;700;900&family=Bungee&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#1a2332;
-  --ink-soft:#3a4555;
-  --paper:#fafaf7;
-  --paper-warm:#f1efe6;
-  --paper-deep:#e6e3d6;
-  --navy:#1e3a5f;
-  --navy-deep:#0f2240;
-  --accent:#b8341c;
-  --gold:#b8860b;
-  --green:#2d6a3e;
-  --green-bg:#e3eddc;
-  --red-bg:#f5e0db;
-  --line:#d4d0c0;
-  --line-dark:#8a8674;
+  --bg:#0a0a0f;
+  --wall-top:#3d3a48;
+  --wall-bot:#241f2c;
+  --floor-1:#2a2230;
+  --floor-2:#1a1420;
+  --ink:#e8e4d8;
+  --gold:#ffd166;
+  --gold-deep:#f4a52d;
+  --red:#ef476f;
+  --green:#06d6a0;
+  --blue:#4cc9f0;
+  --wood:#7a5a3a;
+  --wood-dark:#3d2818;
 }
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{
-  background:var(--paper);
+  background:#000;
   color:var(--ink);
   font-family:'Noto Sans JP','Hiragino Sans',sans-serif;
+  font-weight:500;
   min-height:100vh;
-  overflow-x:hidden;
+  overflow:hidden;
   -webkit-font-smoothing:antialiased;
-  font-feature-settings:"palt";
+  user-select:none;
 }
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+.app{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+  background:#000;
 }
-.container{
-  position:relative;z-index:1;
-  max-width:680px;margin:0 auto;
-  padding:0 24px 80px;
+@media (min-width:768px){
+  .app{
+    max-width:480px;
+    margin:0 auto;
+    border-left:2px solid #000;
+    border-right:2px solid #000;
+  }
+  body{background:#050508}
 }
-.masthead{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:18px 0 12px;
-  border-bottom:1px solid var(--ink);
+/* ───── HUD ───── */
+.hud{
+  position:absolute;
+  top:0;left:0;right:0;
+  padding:12px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:30;
+  background:linear-gradient(180deg,rgba(0,0,0,.9) 0%,rgba(0,0,0,0) 100%);
+  pointer-events:none;
 }
-.masthead-left{display:flex;align-items:center;gap:12px}
-.logo-mark{
-  width:34px;height:34px;
-  background:var(--navy);color:var(--paper);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Shippori Mincho',serif;
-  font-weight:800;font-size:18px;
+.hud > *{pointer-events:auto}
+.timer-display{
+  background:#000;
+  border:2px solid var(--red);
+  padding:6px 14px;
+  font-family:'DotGothic16',monospace;
+  font-size:22px;
+  color:var(--red);
+  letter-spacing:.1em;
+  box-shadow:0 0 12px rgba(239,71,111,.4);
+  text-shadow:0 0 8px var(--red);
 }
-.brand{
-  font-family:'Shippori Mincho',serif;
-  font-weight:700;font-size:14px;letter-spacing:.18em;
+.timer-display.warning{
+  animation:timerWarn .5s ease-in-out infinite;
 }
-.brand small{
-  display:block;
-  font-family:'JetBrains Mono',monospace;
-  font-size:9px;letter-spacing:.15em;
-  font-weight:400;opacity:.55;margin-top:2px;
+@keyframes timerWarn{
+  0%,100%{box-shadow:0 0 12px rgba(239,71,111,.4)}
+  50%{box-shadow:0 0 28px rgba(239,71,111,1)}
 }
-.meta{
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
-  text-align:right;opacity:.65;line-height:1.5;
-}
-.meta-strong{color:var(--navy);font-weight:600}
-.subhead{
-  border-bottom:3px double var(--ink);
-  padding:6px 0 10px;margin-bottom:36px;
-  display:flex;justify-content:space-between;align-items:baseline;
-  font-family:'Shippori Mincho',serif;
-  font-size:11px;letter-spacing:.2em;
-}
-.subhead .chapter{font-weight:700}
-.subhead .number{
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;opacity:.6;
-}
-.screen{display:none;animation:fadeUp .5s cubic-bezier(.2,.8,.2,1)}
-.screen.active{display:block}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(12px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.cover{padding:8px 0 32px;position:relative}
-.cover-tag{
-  display:inline-block;
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;letter-spacing:.22em;
-  background:var(--navy);color:var(--paper);
-  padding:5px 12px;margin-bottom:28px;
-}
-.cover-title{
-  font-family:'Shippori Mincho',serif;
-  font-weight:800;
-  font-size:clamp(38px,7.5vw,62px);
-  line-height:1.05;letter-spacing:-.01em;
-  margin-bottom:10px;color:var(--ink);
-}
-.cover-title .accent{
-  color:var(--accent);
-  position:relative;display:inline-block;
-}
-.cover-title .accent::after{
-  content:'';position:absolute;
-  left:0;right:0;bottom:6px;height:8px;
-  background:var(--accent);opacity:.15;z-index:-1;
-}
-.cover-sub{
-  font-family:'Shippori Mincho',serif;
-  font-size:16px;letter-spacing:.1em;font-weight:500;
-  margin-bottom:32px;color:var(--ink-soft);
-  padding-left:16px;border-left:3px solid var(--navy);
-}
-.cover-desc{
-  font-size:14px;line-height:2;
-  max-width:560px;margin-bottom:36px;
-  color:var(--ink-soft);
-}
-.outline{
-  border:1px solid var(--ink);
-  margin-bottom:36px;
-  background:var(--paper);
-}
-.outline-head{
-  background:var(--navy);color:var(--paper);
-  padding:8px 14px;
-  font-family:'Shippori Mincho',serif;
-  font-size:12px;letter-spacing:.18em;font-weight:600;
-}
-.outline-row{
-  display:grid;
-  grid-template-columns:110px 1fr;
-  border-top:1px solid var(--line);
+.keys-display{
+  background:#000;
+  border:2px solid var(--gold);
+  padding:6px 12px;
+  font-family:'Bungee',sans-serif;
   font-size:13px;
-}
-.outline-row:first-of-type{border-top:none}
-.outline-row .label{
-  background:var(--paper-warm);
-  padding:11px 14px;
-  font-family:'Shippori Mincho',serif;
-  font-weight:600;
-  border-right:1px solid var(--line);
-  font-size:12px;letter-spacing:.05em;
-}
-.outline-row .value{
-  padding:11px 14px;
-  font-family:'Noto Sans JP',sans-serif;
-}
-.outline-row .value strong{
-  font-family:'Shippori Mincho',serif;
-  color:var(--accent);font-size:15px;
-}
-.btn{
-  display:inline-flex;align-items:center;gap:14px;
-  background:var(--navy);color:var(--paper);
-  border:2px solid var(--navy);
-  padding:15px 32px;
-  font-family:'Shippori Mincho',serif;
-  font-size:15px;font-weight:700;letter-spacing:.12em;
-  cursor:pointer;transition:all .2s;
-  text-decoration:none;
-}
-.btn:hover{
-  background:var(--navy-deep);
-  transform:translate(-2px,-2px);
-  box-shadow:4px 4px 0 var(--ink);
-}
-.btn .arrow{
-  font-family:'JetBrains Mono',monospace;
-  font-weight:400;transition:transform .2s;
-}
-.btn:hover .arrow{transform:translateX(4px)}
-.btn.ghost{
-  background:var(--paper);color:var(--ink);
-  border-color:var(--ink);
-}
-.btn.ghost:hover{
-  background:var(--paper-warm);color:var(--ink);
-}
-.progress-wrap{margin-bottom:24px}
-.progress-info{
-  display:flex;justify-content:space-between;align-items:baseline;
-  margin-bottom:8px;
-}
-.progress-label{
-  font-family:'JetBrains Mono',monospace;
-  font-size:10px;letter-spacing:.15em;opacity:.65;
-}
-.progress-percent{
-  font-family:'Shippori Mincho',serif;
-  font-size:14px;font-weight:700;color:var(--navy);
-}
-.progress-bar{display:flex;gap:3px}
-.progress-cell{
-  flex:1;height:5px;
-  background:var(--paper-deep);
-  border:1px solid var(--line-dark);
-}
-.progress-cell.done{background:var(--navy);border-color:var(--navy)}
-.progress-cell.current{background:var(--accent);border-color:var(--accent)}
-.question-card{
-  background:var(--paper);
-  border:1px solid var(--ink);
-  position:relative;
-}
-.question-card::before{
-  content:'';position:absolute;
-  inset:4px;border:1px solid var(--line);
-  pointer-events:none;
-}
-.question-head{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:14px 22px;
-  border-bottom:1px solid var(--line);
-  background:var(--paper-warm);
-  position:relative;z-index:1;
-}
-.q-num{
-  font-family:'Shippori Mincho',serif;
-  font-size:12px;letter-spacing:.15em;font-weight:700;
-}
-.q-num .big{
-  font-size:22px;color:var(--accent);
-  font-weight:800;margin:0 2px;
-}
-.q-category{
-  font-family:'Shippori Mincho',serif;
-  font-size:11px;letter-spacing:.15em;
-  background:var(--navy);color:var(--paper);
-  padding:4px 11px;font-weight:600;
-}
-.question-body{padding:26px 22px 22px;position:relative;z-index:1}
-.question-text{
-  font-family:'Shippori Mincho',serif;
-  font-size:18px;line-height:1.75;font-weight:600;
-  margin-bottom:24px;
-  padding-left:14px;
-  border-left:3px solid var(--accent);
-  color:var(--ink);
-}
-.choices{display:flex;flex-direction:column;gap:10px}
-.choice-btn{
-  display:flex;align-items:flex-start;gap:14px;
-  background:var(--paper);
-  border:1.5px solid var(--ink);
-  padding:14px 18px;
-  cursor:pointer;
-  transition:all .15s;
-  text-align:left;
-  font-family:'Noto Sans JP',sans-serif;
-  font-size:14px;line-height:1.6;
-  color:var(--ink);
-  width:100%;
-  position:relative;
-}
-.choice-btn:hover:not(:disabled){
-  background:var(--paper-warm);
-  transform:translate(-2px,-2px);
-  box-shadow:3px 3px 0 var(--ink);
-}
-.choice-btn:disabled{cursor:default}
-.choice-letter{
-  font-family:'Shippori Mincho',serif;
-  font-size:16px;font-weight:800;
-  color:var(--navy);
-  flex-shrink:0;width:20px;
-  border-right:1px solid var(--line-dark);
-  padding-right:10px;
-}
-.choice-text{flex:1;padding-top:1px}
-.choice-mark{
-  margin-left:auto;
-  font-family:'Shippori Mincho',serif;
-  font-size:22px;font-weight:800;line-height:1;
-  flex-shrink:0;
-}
-.choice-btn.correct{
-  background:var(--green-bg);
-  border-color:var(--green);
-}
-.choice-btn.correct .choice-letter{color:var(--green)}
-.choice-btn.correct .choice-mark{color:var(--green)}
-.choice-btn.wrong{
-  background:var(--red-bg);
-  border-color:var(--accent);
-}
-.choice-btn.wrong .choice-letter{color:var(--accent)}
-.choice-btn.wrong .choice-mark{color:var(--accent)}
-.explanation{
-  margin-top:18px;
-  background:var(--navy-deep);
-  color:var(--paper);
-  padding:20px 22px;
-  border:1px solid var(--ink);
-  display:none;
-  position:relative;
-}
-.explanation.show{display:block;animation:fadeUp .35s}
-.explanation::before{
-  content:'';position:absolute;
-  inset:4px;border:1px solid rgba(244,240,230,.2);
-  pointer-events:none;
-}
-.exp-label{
-  display:inline-block;
-  font-family:'Shippori Mincho',serif;
-  font-size:11px;letter-spacing:.2em;font-weight:700;
   color:var(--gold);
-  border-bottom:1px solid var(--gold);
-  padding-bottom:3px;margin-bottom:12px;
-  position:relative;z-index:1;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  text-shadow:0 0 6px var(--gold);
 }
-.exp-text{
-  font-family:'Shippori Mincho',serif;
-  font-size:14px;line-height:1.95;font-weight:500;
-  position:relative;z-index:1;
+.key-icon{font-size:14px}
+/* ───── 部屋 SVG ───── */
+.room{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
 }
-.next-wrap{
-  margin-top:22px;text-align:right;
-  display:none;
+.room-svg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
 }
-.next-wrap.show{display:block}
-.result-card{
-  background:var(--paper);
-  border:1px solid var(--ink);
+/* ───── インタラクティブ・オブジェクト ───── */
+.obj{
+  position:absolute;
+  cursor:pointer;
+  z-index:15;
+  transition:all .2s;
+}
+.obj:not(.solved):hover{
+  transform:scale(1.05);
+  filter:brightness(1.3) drop-shadow(0 0 14px var(--gold));
+}
+.obj:not(.solved){
+  animation:objGlow 2.4s ease-in-out infinite;
+}
+@keyframes objGlow{
+  0%,100%{filter:drop-shadow(0 0 4px rgba(255,209,102,.3))}
+  50%{filter:drop-shadow(0 0 12px rgba(255,209,102,.7))}
+}
+.obj.solved{
+  cursor:default;
+  filter:brightness(.35) saturate(.2);
+  animation:none;
+}
+.obj.solved::after{
+  content:'✓';
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-size:36px;
+  color:var(--green);
+  text-shadow:0 0 18px var(--green),2px 2px 0 #000,-1px -1px 0 #000;
+  font-weight:900;
+  z-index:1;
+}
+.obj-label{
+  position:absolute;
+  top:100%;
+  left:50%;
+  transform:translateX(-50%);
+  margin-top:4px;
+  font-family:'DotGothic16',monospace;
+  font-size:10px;
+  color:var(--gold);
+  text-shadow:1px 1px 0 #000,0 0 6px rgba(255,209,102,.5);
+  white-space:nowrap;
+  pointer-events:none;
+}
+.obj.solved .obj-label{color:#555;text-shadow:1px 1px 0 #000}
+/* オブジェクト位置 */
+.obj-clock{top:8%;left:50%;transform:translateX(-50%);width:70px;height:70px}
+.obj-clock:not(.solved):hover{transform:translateX(-50%) scale(1.05)}
+.obj-phone{top:42%;left:6%;width:55px;height:55px}
+.obj-pc{top:46%;left:50%;transform:translateX(-50%);width:90px;height:60px}
+.obj-pc:not(.solved):hover{transform:translateX(-50%) scale(1.05)}
+.obj-cabinet{top:36%;right:6%;width:70px;height:90px}
+.obj-door{bottom:30%;left:50%;transform:translateX(-50%);width:90px;height:110px}
+.obj-door:not(.solved):hover{transform:translateX(-50%) scale(1.05)}
+/* ───── オープニング ───── */
+.opening{
+  position:absolute;
+  inset:0;
+  background:#000;
+  z-index:200;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:32px 22px;
+  text-align:center;
+  overflow-y:auto;
+}
+.op-title{
+  font-family:'DotGothic16',monospace;
+  font-size:clamp(26px,7vw,42px);
+  color:var(--gold);
+  text-shadow:0 0 24px var(--gold-deep),3px 3px 0 #000,-1px -1px 0 #000;
+  margin-bottom:6px;
+  line-height:1.2;
+  letter-spacing:.08em;
+}
+.op-sub{
+  font-family:'Bungee',sans-serif;
+  font-size:10px;
+  color:var(--ink);
+  letter-spacing:.2em;
+  margin-bottom:28px;
+  opacity:.8;
+}
+.op-story{
+  background:rgba(20,18,30,.95);
+  border:2px solid var(--gold);
+  padding:22px 20px;
+  max-width:380px;
+  margin-bottom:24px;
+  font-family:'DotGothic16',monospace;
+  font-size:13px;
+  line-height:2;
+  color:var(--ink);
+  text-align:left;
   position:relative;
-  padding:44px 28px 36px;
+  box-shadow:0 0 30px rgba(255,209,102,.2),0 8px 0 #000;
+}
+.op-story::before{
+  content:'';
+  position:absolute;
+  top:-2px;left:-2px;right:-2px;bottom:-2px;
+  border:1px solid rgba(255,209,102,.3);
+  pointer-events:none;
+}
+.op-story p{margin-bottom:10px}
+.op-story p:last-child{margin-bottom:0}
+.op-story .em{color:var(--gold)}
+.op-story .red{color:var(--red)}
+.op-rules{
+  font-family:'DotGothic16',monospace;
+  font-size:11px;
+  color:var(--ink);
+  margin-bottom:24px;
+  opacity:.7;
+  line-height:1.8;
+}
+.op-rules .em{color:var(--gold)}
+.btn-start{
+  background:linear-gradient(180deg,var(--gold) 0%,var(--gold-deep) 100%);
+  color:#000;
+  border:3px solid #000;
+  padding:14px 38px;
+  font-family:'Bungee',sans-serif;
+  font-size:15px;
+  letter-spacing:.12em;
+  cursor:pointer;
+  box-shadow:0 5px 0 #000,0 8px 20px rgba(0,0,0,.6);
+  transition:all .1s;
+}
+.btn-start:active{
+  transform:translateY(3px);
+  box-shadow:0 2px 0 #000,0 4px 10px rgba(0,0,0,.6);
+}
+/* ───── 問題モーダル ───── */
+.modal-overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.88);
+  z-index:100;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  animation:fadeIn .3s ease;
+}
+.modal-overlay.show{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{
+  background:linear-gradient(180deg,#1c1828 0%,#0e0a18 100%);
+  border:2px solid var(--gold);
+  max-width:420px;
+  width:100%;
+  max-height:92vh;
+  overflow-y:auto;
+  box-shadow:0 0 40px rgba(255,209,102,.3),0 12px 0 #000;
+  position:relative;
+  animation:modalIn .4s cubic-bezier(.2,1.5,.3,1);
+}
+@keyframes modalIn{
+  from{transform:scale(.85) translateY(20px);opacity:0}
+  to{transform:scale(1) translateY(0);opacity:1}
+}
+.modal-header{
+  background:#000;
+  border-bottom:2px solid var(--gold);
+  padding:10px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:5;
+}
+.modal-loc{
+  font-family:'DotGothic16',monospace;
+  font-size:13px;
+  color:var(--gold);
+  letter-spacing:.1em;
+}
+.modal-loc .icon{margin-right:6px}
+.modal-loc .progress{
+  font-family:'Bungee',sans-serif;
+  font-size:9px;
+  color:var(--ink);
+  margin-left:8px;
+  opacity:.6;
+}
+.modal-close{
+  background:none;
+  border:1px solid var(--ink);
+  color:var(--ink);
+  width:26px;height:26px;
+  font-size:14px;
+  cursor:pointer;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all .15s;
+}
+.modal-close:hover{
+  background:var(--red);
+  border-color:var(--red);
+  color:#fff;
+}
+.modal-body{padding:18px 18px 20px}
+.modal-scene{
+  background:rgba(255,209,102,.07);
+  border-left:3px solid var(--gold);
+  padding:12px 14px;
+  margin-bottom:16px;
+  font-family:'DotGothic16',monospace;
+  font-size:12px;
+  line-height:1.85;
+  color:var(--ink);
+  white-space:pre-line;
+}
+.modal-scene .em{color:var(--gold)}
+.modal-scene .red{color:var(--red)}
+.modal-q{
+  font-size:14px;
+  font-weight:900;
+  line-height:1.55;
+  margin-bottom:14px;
+  color:#fff;
+  padding-left:10px;
+  border-left:3px solid var(--red);
+}
+.modal-choices{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.modal-choice{
+  background:rgba(255,255,255,.05);
+  border:2px solid rgba(255,209,102,.4);
+  color:var(--ink);
+  padding:11px 13px;
+  font-family:'Noto Sans JP',sans-serif;
+  font-weight:700;
+  font-size:13px;
+  text-align:left;
+  cursor:pointer;
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  line-height:1.5;
+  transition:all .15s;
+}
+.modal-choice:hover:not(:disabled){
+  background:rgba(255,209,102,.15);
+  border-color:var(--gold);
+  transform:translateX(3px);
+}
+.modal-choice:disabled{cursor:default}
+.choice-num{
+  color:var(--gold);
+  font-family:'DotGothic16',monospace;
+  font-size:13px;
+  flex-shrink:0;
+  font-weight:900;
+}
+.modal-choice.correct{
+  background:rgba(6,214,160,.2);
+  border-color:var(--green);
+  color:#fff;
+  animation:correctPulse .5s;
+}
+.modal-choice.correct .choice-num{color:var(--green)}
+.modal-choice.wrong{
+  background:rgba(239,71,111,.2);
+  border-color:var(--red);
+  color:#fff;
+  animation:wrongShake .4s;
+}
+.modal-choice.wrong .choice-num{color:var(--red)}
+@keyframes correctPulse{
+  0%,100%{filter:brightness(1)}
+  50%{filter:brightness(1.5)}
+}
+@keyframes wrongShake{
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-6px)}
+  40%{transform:translateX(6px)}
+  60%{transform:translateX(-4px)}
+  80%{transform:translateX(4px)}
+}
+.modal-result{
+  display:none;
+  margin-top:14px;
+  padding:13px 15px;
+  border:2px solid;
+  font-family:'DotGothic16',monospace;
+  font-size:11px;
+  line-height:1.85;
+  animation:slideIn .4s ease;
+}
+.modal-result.show{display:block}
+@keyframes slideIn{
+  from{transform:translateY(10px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+.modal-result.success{
+  background:rgba(6,214,160,.1);
+  border-color:var(--green);
+  color:var(--green);
+}
+.modal-result.fail{
+  background:rgba(239,71,111,.1);
+  border-color:var(--red);
+  color:var(--red);
+}
+.result-title{
+  font-size:13px;
+  font-weight:900;
+  margin-bottom:6px;
+  letter-spacing:.05em;
+}
+.result-text{color:var(--ink);font-size:11px}
+.modal-continue{
+  width:100%;
+  margin-top:13px;
+  background:var(--gold);
+  color:#000;
+  border:2px solid #000;
+  padding:11px;
+  font-family:'Bungee',sans-serif;
+  font-size:13px;
+  letter-spacing:.1em;
+  cursor:pointer;
+  box-shadow:0 4px 0 #000;
+  transition:all .1s;
+}
+.modal-continue:active{
+  transform:translateY(2px);
+  box-shadow:0 2px 0 #000;
+}
+/* ───── 鍵獲得演出 ───── */
+.key-pop{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(0);
+  font-size:80px;
+  z-index:150;
+  pointer-events:none;
+  filter:drop-shadow(0 0 30px var(--gold));
+}
+.key-pop.show{
+  animation:keyPop 1.4s ease-out forwards;
+}
+@keyframes keyPop{
+  0%{transform:translate(-50%,-50%) scale(0) rotate(-180deg);opacity:0}
+  20%{transform:translate(-50%,-50%) scale(1.5) rotate(20deg);opacity:1}
+  40%{transform:translate(-50%,-50%) scale(1.2) rotate(0deg)}
+  80%{transform:translate(-50%,-50%) scale(1.2) rotate(0deg);opacity:1}
+  100%{transform:translate(-50%,-150%) scale(.6) rotate(0deg);opacity:0}
+}
+/* ───── ヒントバナー ───── */
+.hint-banner{
+  position:absolute;
+  bottom:14px;left:14px;right:14px;
+  background:rgba(0,0,0,.85);
+  border:1px solid var(--gold);
+  padding:9px 12px;
+  font-family:'DotGothic16',monospace;
+  font-size:11px;
+  color:var(--ink);
+  text-align:center;
+  z-index:20;
+  pointer-events:none;
+  box-shadow:0 0 16px rgba(255,209,102,.2);
+}
+.hint-banner .em{color:var(--gold)}
+/* ───── エンディング ───── */
+.ending{
+  position:absolute;
+  inset:0;
+  z-index:200;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:28px 22px;
+  text-align:center;
+  overflow-y:auto;
+}
+.ending.show{display:flex}
+.ending.win{background:radial-gradient(ellipse at center,#1a3a2a 0%,#000 80%)}
+.ending.lose{background:radial-gradient(ellipse at center,#3a0a1a 0%,#000 80%)}
+.end-icon{
+  font-size:72px;
+  margin-bottom:14px;
+  filter:drop-shadow(0 4px 0 #000);
+  animation:endIcon 1.5s ease-in-out infinite;
+}
+@keyframes endIcon{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+.end-title{
+  font-family:'DotGothic16',monospace;
+  font-size:clamp(34px,9vw,50px);
+  margin-bottom:14px;
+  text-shadow:3px 3px 0 #000,-1px -1px 0 #000;
+  letter-spacing:.08em;
+}
+.ending.win .end-title{color:var(--gold);text-shadow:0 0 30px var(--gold-deep),3px 3px 0 #000}
+.ending.lose .end-title{color:var(--red);text-shadow:0 0 30px var(--red),3px 3px 0 #000}
+.end-message{
+  background:rgba(0,0,0,.7);
+  border:2px solid currentColor;
+  padding:18px 22px;
+  max-width:360px;
+  font-family:'DotGothic16',monospace;
+  font-size:12px;
+  line-height:1.9;
+  margin-bottom:22px;
+  text-align:left;
+}
+.ending.win .end-message{border-color:var(--green)}
+.ending.lose .end-message{border-color:var(--red)}
+.end-message p{margin-bottom:8px;color:var(--ink)}
+.end-message p:last-child{margin-bottom:0}
+.end-message .praise{color:var(--green)}
+.end-message .blame{color:var(--red)}
+.end-stats{
+  display:flex;
+  gap:18px;
+  margin-bottom:24px;
+  font-family:'DotGothic16',monospace;
+  font-size:11px;
+  color:var(--ink);
+}
+.end-stat{
+  background:rgba(0,0,0,.6);
+  border:1px solid var(--gold);
+  padding:10px 16px;
   text-align:center;
 }
-.result-card::before{
-  content:'';position:absolute;
-  inset:5px;border:1px solid var(--line);
-  pointer-events:none;
+.end-stat .num{
+  display:block;
+  font-size:22px;
+  color:var(--gold);
+  font-weight:900;
+  margin-bottom:2px;
 }
-.result-stamp{
-  display:inline-block;
-  font-family:'Shippori Mincho',serif;
-  font-size:10px;letter-spacing:.3em;
-  color:var(--accent);
-  border:1px solid var(--accent);
-  padding:5px 14px;
-  margin-bottom:24px;
-  font-weight:700;
+.end-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
 }
-.result-rank{
-  font-family:'Shippori Mincho',serif;
-  font-size:48px;font-weight:800;
-  line-height:1;margin-bottom:18px;
-  color:var(--ink);letter-spacing:.05em;
+.btn-end{
+  background:var(--gold);
+  color:#000;
+  border:3px solid #000;
+  padding:12px 26px;
+  font-family:'Bungee',sans-serif;
+  font-size:13px;
+  letter-spacing:.1em;
+  cursor:pointer;
+  box-shadow:0 4px 0 #000;
 }
-.result-rank .em{color:var(--accent)}
-.result-score-box{
-  display:inline-block;
-  border-top:1px solid var(--ink);
-  border-bottom:1px solid var(--ink);
-  padding:14px 36px;
-  margin-bottom:22px;
-}
-.result-score{font-family:'Shippori Mincho',serif}
-.result-score .num{
-  font-size:54px;font-weight:800;
-  color:var(--accent);line-height:1;
-}
-.result-score .total{
-  font-size:18px;opacity:.5;margin-left:4px;
-}
-.result-score-label{
-  font-family:'JetBrains Mono',monospace;
-  font-size:9px;letter-spacing:.2em;
-  text-transform:uppercase;
-  margin-top:6px;opacity:.6;
-}
-.result-percent{
-  font-family:'JetBrains Mono',monospace;
-  font-size:13px;letter-spacing:.1em;
-  color:var(--navy);font-weight:600;
-  margin-bottom:18px;
-}
-.result-message{
-  font-family:'Shippori Mincho',serif;
-  font-size:14px;line-height:1.95;
-  max-width:440px;margin:0 auto 30px;
-  color:var(--ink-soft);
-}
-.result-actions{
-  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
-}
-.colophon{
-  margin-top:54px;
-  padding-top:14px;
-  border-top:1px solid var(--line-dark);
-  display:flex;justify-content:space-between;
-  font-family:'JetBrains Mono',monospace;
-  font-size:9px;letter-spacing:.12em;
-  opacity:.5;text-transform:uppercase;
-}
-@media (max-width:600px){
-  .container{padding:0 16px 60px}
-  .question-text{font-size:16px}
-  .cover-title{font-size:42px}
-  .outline-row{grid-template-columns:90px 1fr}
-  .outline-row .label{padding:10px;font-size:11px}
-  .outline-row .value{padding:10px;font-size:12px}
-  .result-rank{font-size:38px}
-  .result-score .num{font-size:44px}
-}
+.btn-end:active{transform:translateY(2px);box-shadow:0 2px 0 #000}
+.btn-end.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
 </style>
 </head>
 <body>
-<div class="container">
-  <header class="masthead">
-    <div class="masthead-left">
-      <div class="logo-mark">礼</div>
-      <div class="brand">
-        新卒ビジネスマナー研修
-        <small>FRESHMAN BUSINESS MANNERS PROGRAM</small>
-      </div>
+<div class="app">
+
+  <!-- ───── オープニング ───── -->
+  <div class="opening" id="opening">
+    <div class="op-title">会議室からの脱出</div>
+    <div class="op-sub">ESCAPE FROM THE MEETING ROOM</div>
+
+    <div class="op-story">
+      <p>20XX年4月1日 午前8時。</p>
+      <p>新卒社員のあなたは、配属初日。指定された<span class="em">第3会議室</span>に通された瞬間──カチャリ、と背後で施錠の音がした。</p>
+      <p>机の上に置かれた一枚の紙。</p>
+      <p>『これは<span class="em">最終マナー研修</span>です。室内のあらゆる物に隠された<span class="em">10の問いに正解</span>し、<span class="em">10分以内</span>に脱出しなさい。』</p>
+      <p>『5つの鍵を集めて扉を開けよ。<span class="red">失敗すれば内定取消です。</span>』</p>
     </div>
-    <div class="meta">
-      <div class="meta-strong">VOL. 01</div>
-      <div>2026 EDITION</div>
+
+    <div class="op-rules">
+      ▼ 操作 ▼<br>
+      <span class="em">光るオブジェクト</span>をタップで謎解き開始<br>
+      各場所に<span class="em">2問</span>、合計<span class="em">10問</span>。全問正解で鍵獲得<br>
+      不正解は<span class="em">時間-30秒</span>のペナルティ
     </div>
-  </header>
-  <div class="subhead">
-    <span class="chapter">第一講 ── 実践問答十題</span>
-    <span class="number">CHAPTER I · 10 Q</span>
+
+    <button class="btn-start" onclick="startGame()">入室する</button>
   </div>
 
-  <section class="screen active" id="title-screen">
-    <div class="cover">
-      <span class="cover-tag">PRACTICAL Q &amp; A · 10 QUESTIONS</span>
-      <h1 class="cover-title">
-        ビジネスマナー<br>
-        <span class="accent">十問十答</span>
-      </h1>
-      <p class="cover-sub">研修一日目に、まず確かめておきたいこと。</p>
-      <p class="cover-desc">
-        本テキストは、新卒社員が現場に立つ前に身につけておくべきビジネスマナーの基本を、全十問の四択形式で確認するための実践教材です。挨拶・名刺交換・電話応対・メール作法など、明日から必要となる場面を厳選しました。各設問には丁寧な解説を付しています。
-      </p>
+  <!-- ───── 部屋画面 ───── -->
+  <div class="room" id="room">
 
-      <div class="outline">
-        <div class="outline-head">── 講座概要 ──</div>
-        <div class="outline-row">
-          <div class="label">問題数</div>
-          <div class="value"><strong>10</strong> 問（四択形式）</div>
-        </div>
-        <div class="outline-row">
-          <div class="label">所要時間</div>
-          <div class="value">およそ <strong>5</strong> 分</div>
-        </div>
-        <div class="outline-row">
-          <div class="label">出題範囲</div>
-          <div class="value">挨拶・敬語・名刺・電話・メール・席次・服装ほか</div>
-        </div>
-        <div class="outline-row">
-          <div class="label">対象</div>
-          <div class="value">新入社員・内定者・若手社員</div>
-        </div>
+    <!-- 部屋のSVG -->
+    <svg class="room-svg" viewBox="0 0 400 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- 床のグラデ -->
+        <linearGradient id="floorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#2a2030"/>
+          <stop offset="100%" stop-color="#0a0612"/>
+        </linearGradient>
+        <!-- 壁のグラデ -->
+        <radialGradient id="wallGrad" cx="50%" cy="40%" r="70%">
+          <stop offset="0%" stop-color="#3d3548"/>
+          <stop offset="60%" stop-color="#252030"/>
+          <stop offset="100%" stop-color="#0e0a18"/>
+        </radialGradient>
+        <!-- ライトのグロー -->
+        <radialGradient id="lightGlow" cx="50%" cy="0%" r="60%">
+          <stop offset="0%" stop-color="rgba(255,240,180,0.4)"/>
+          <stop offset="50%" stop-color="rgba(255,240,180,0.1)"/>
+          <stop offset="100%" stop-color="rgba(255,240,180,0)"/>
+        </radialGradient>
+        <pattern id="carpetPattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+          <rect width="40" height="40" fill="#1a0f20"/>
+          <path d="M 0 0 L 40 40 M 40 0 L 0 40" stroke="#2a1830" stroke-width="0.5"/>
+        </pattern>
+      </defs>
+
+      <!-- 背景の壁 -->
+      <rect width="400" height="700" fill="url(#wallGrad)"/>
+
+      <!-- 天井のライトグロー -->
+      <ellipse cx="200" cy="0" rx="240" ry="180" fill="url(#lightGlow)"/>
+
+      <!-- 天井の梁 -->
+      <line x1="0" y1="50" x2="400" y2="50" stroke="#1a1525" stroke-width="3"/>
+      <line x1="0" y1="55" x2="400" y2="55" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+
+      <!-- 蛍光灯 -->
+      <rect x="120" y="8" width="160" height="14" rx="2" fill="#15101e" stroke="#2a1f30" stroke-width="2"/>
+      <rect x="125" y="11" width="150" height="8" rx="1" fill="#fff8d8" opacity="0.95">
+        <animate attributeName="opacity" values="0.95;0.95;0.4;0.95;0.6;0.95" dur="5s" repeatCount="indefinite"/>
+      </rect>
+
+      <!-- 壁の絵 (左) -->
+      <g transform="translate(40,140)">
+        <rect width="55" height="70" fill="#3a2a18" stroke="#1a0f08" stroke-width="3"/>
+        <rect x="4" y="4" width="47" height="62" fill="#5a4530"/>
+        <rect x="8" y="8" width="39" height="40" fill="#2a3540"/>
+        <circle cx="27" cy="22" r="6" fill="#ffd166"/>
+        <path d="M 8 48 L 18 35 L 28 42 L 40 28 L 47 36 L 47 48 Z" fill="#1a2530"/>
+        <text x="27" y="60" fill="#8a7050" font-size="6" text-anchor="middle" font-family="serif">座右の銘</text>
+      </g>
+
+      <!-- 賞状 (右) -->
+      <g transform="translate(305,140)">
+        <rect width="55" height="70" fill="#5a4023" stroke="#1a0f08" stroke-width="3"/>
+        <rect x="4" y="4" width="47" height="62" fill="#f0e8d0"/>
+        <text x="27" y="20" fill="#3a2818" font-size="7" text-anchor="middle" font-family="serif" font-weight="bold">表彰状</text>
+        <line x1="10" y1="28" x2="44" y2="28" stroke="#3a2818" stroke-width="0.5"/>
+        <line x1="10" y1="34" x2="44" y2="34" stroke="#3a2818" stroke-width="0.5"/>
+        <line x1="10" y1="40" x2="44" y2="40" stroke="#3a2818" stroke-width="0.5"/>
+        <line x1="10" y1="46" x2="44" y2="46" stroke="#3a2818" stroke-width="0.5"/>
+        <circle cx="40" cy="56" r="5" fill="#c73e1d" stroke="#600" stroke-width="1"/>
+        <text x="40" y="59" fill="#fff" font-size="4" text-anchor="middle" font-weight="bold">印</text>
+      </g>
+
+      <!-- ホワイトボード -->
+      <g transform="translate(140,180)">
+        <rect width="120" height="70" fill="#1a1018" stroke="#000" stroke-width="3"/>
+        <rect x="3" y="3" width="114" height="64" fill="#e8e4d8"/>
+        <text x="60" y="20" fill="#1a2840" font-size="9" text-anchor="middle" font-weight="bold" font-family="sans-serif">本日の議題</text>
+        <line x1="10" y1="26" x2="110" y2="26" stroke="#aaa" stroke-width="0.5"/>
+        <text x="10" y="36" fill="#1a2840" font-size="6" font-family="sans-serif">・新人研修最終評価</text>
+        <text x="10" y="45" fill="#1a2840" font-size="6" font-family="sans-serif">・配属先決定について</text>
+        <text x="10" y="54" fill="#ef476f" font-size="6" font-family="sans-serif" font-weight="bold">・脱出マナー試験</text>
+        <text x="10" y="63" fill="#1a2840" font-size="6" font-family="sans-serif">・打ち上げ会場確認</text>
+      </g>
+
+      <!-- 床 (パース効果) -->
+      <polygon points="0,440 400,440 400,700 0,700" fill="url(#floorGrad)"/>
+      <polygon points="0,440 400,440 380,700 20,700" fill="url(#carpetPattern)" opacity="0.6"/>
+
+      <!-- 床のライン (奥行き) -->
+      <line x1="200" y1="440" x2="0" y2="700" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="200" y1="440" x2="400" y2="700" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="0" y1="510" x2="400" y2="510" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="0" y1="580" x2="400" y2="580" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+      <line x1="0" y1="640" x2="400" y2="640" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+      <!-- 中央の会議テーブル -->
+      <g>
+        <!-- テーブル天板 -->
+        <ellipse cx="200" cy="490" rx="170" ry="38" fill="#3a2818" stroke="#1a0f08" stroke-width="3"/>
+        <ellipse cx="200" cy="487" rx="166" ry="35" fill="#5a3825"/>
+        <ellipse cx="200" cy="486" rx="160" ry="30" fill="#6b4423"/>
+        <!-- 木目 -->
+        <ellipse cx="200" cy="486" rx="140" ry="22" fill="none" stroke="#4a2c10" stroke-width="0.8" opacity="0.5"/>
+        <ellipse cx="200" cy="486" rx="100" ry="14" fill="none" stroke="#4a2c10" stroke-width="0.8" opacity="0.5"/>
+        <ellipse cx="200" cy="486" rx="60" ry="8" fill="none" stroke="#4a2c10" stroke-width="0.8" opacity="0.5"/>
+        <!-- ハイライト -->
+        <ellipse cx="180" cy="478" rx="80" ry="6" fill="#8b5a33" opacity="0.4"/>
+        <!-- テーブル脚 (見えてる部分) -->
+        <rect x="60" y="510" width="8" height="60" fill="#1a0f08"/>
+        <rect x="332" y="510" width="8" height="60" fill="#1a0f08"/>
+        <rect x="196" y="525" width="8" height="50" fill="#0a0608"/>
+      </g>
+
+      <!-- 椅子 (奥) -->
+      <g>
+        <ellipse cx="100" cy="465" rx="22" ry="6" fill="#1a0f18"/>
+        <rect x="84" y="438" width="32" height="28" rx="3" fill="#2a1828" stroke="#0a0408" stroke-width="2"/>
+        <ellipse cx="300" cy="465" rx="22" ry="6" fill="#1a0f18"/>
+        <rect x="284" y="438" width="32" height="28" rx="3" fill="#2a1828" stroke="#0a0408" stroke-width="2"/>
+      </g>
+
+      <!-- 椅子 (手前) -->
+      <g>
+        <rect x="50" y="595" width="50" height="55" rx="4" fill="#1a1020" stroke="#000" stroke-width="2"/>
+        <rect x="55" y="600" width="40" height="32" rx="2" fill="#2a1830"/>
+        <rect x="300" y="595" width="50" height="55" rx="4" fill="#1a1020" stroke="#000" stroke-width="2"/>
+        <rect x="305" y="600" width="40" height="32" rx="2" fill="#2a1830"/>
+      </g>
+
+      <!-- 部屋の隅の影 -->
+      <radialGradient id="cornerShadow" cx="50%" cy="100%" r="80%">
+        <stop offset="0%" stop-color="rgba(0,0,0,0)"/>
+        <stop offset="100%" stop-color="rgba(0,0,0,0.7)"/>
+      </radialGradient>
+      <rect width="400" height="700" fill="url(#cornerShadow)" pointer-events="none"/>
+
+      <!-- 観葉植物 (左隅) -->
+      <g transform="translate(8,560)">
+        <ellipse cx="20" cy="100" rx="22" ry="5" fill="#1a0f08"/>
+        <path d="M 8 100 L 12 60 L 28 60 L 32 100 Z" fill="#3a2818" stroke="#1a0f08" stroke-width="2"/>
+        <ellipse cx="20" cy="58" rx="14" ry="4" fill="#2a1810"/>
+        <path d="M 20 58 Q 5 30 8 10 Q 18 25 20 40 Q 22 25 32 10 Q 35 30 20 58" fill="#1a4520" stroke="#0a2510" stroke-width="1"/>
+        <path d="M 20 58 Q 0 45 -2 25 Q 12 35 20 50" fill="#205a25" stroke="#0a2510" stroke-width="1"/>
+        <path d="M 20 58 Q 40 45 42 25 Q 28 35 20 50" fill="#205a25" stroke="#0a2510" stroke-width="1"/>
+      </g>
+    </svg>
+
+    <!-- HUD -->
+    <div class="hud">
+      <div class="timer-display" id="timer">10:00</div>
+      <div class="keys-display">
+        <span class="key-icon">🔑</span>
+        <span id="keysCount">0</span>/5
       </div>
-
-      <button class="btn" onclick="startQuiz()">
-        受講をはじめる <span class="arrow">→</span>
-      </button>
     </div>
-  </section>
 
-  <section class="screen" id="quiz-screen">
-    <div class="progress-wrap">
-      <div class="progress-info">
-        <span class="progress-label">PROGRESS</span>
-        <span class="progress-percent" id="progress-percent">0%</span>
-      </div>
-      <div class="progress-bar" id="progress-bar"></div>
+    <!-- インタラクティブ・オブジェクト -->
+    <!-- 壁掛け時計 -->
+    <div class="obj obj-clock" data-id="0" onclick="openLocation(0)">
+      <svg viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="35" cy="35" r="30" fill="#f4f0e0" stroke="#1a0f08" stroke-width="3"/>
+        <circle cx="35" cy="35" r="28" fill="none" stroke="#3a2818" stroke-width="1"/>
+        <text x="35" y="14" font-size="6" text-anchor="middle" fill="#1a0f08" font-weight="bold">12</text>
+        <text x="56" y="38" font-size="6" text-anchor="middle" fill="#1a0f08" font-weight="bold">3</text>
+        <text x="35" y="62" font-size="6" text-anchor="middle" fill="#1a0f08" font-weight="bold">6</text>
+        <text x="14" y="38" font-size="6" text-anchor="middle" fill="#1a0f08" font-weight="bold">9</text>
+        <line x1="35" y1="35" x2="35" y2="18" stroke="#1a0f08" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="35" y1="35" x2="48" y2="35" stroke="#1a0f08" stroke-width="2" stroke-linecap="round"/>
+        <line x1="35" y1="35" x2="35" y2="55" stroke="#ef476f" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="35" cy="35" r="2" fill="#1a0f08"/>
+      </svg>
+      <span class="obj-label">壁掛け時計</span>
     </div>
 
-    <div class="question-card">
-      <div class="question-head">
-        <div class="q-num">第 <span class="big" id="q-current">1</span> 問 ／ 全 10 問</div>
-        <div class="q-category" id="q-category">挨拶</div>
+    <!-- 電話機 -->
+    <div class="obj obj-phone" data-id="1" onclick="openLocation(1)">
+      <svg viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="22" width="43" height="28" rx="3" fill="#1a1820" stroke="#000" stroke-width="2"/>
+        <rect x="10" y="26" width="35" height="10" rx="1" fill="#3a3340"/>
+        <circle cx="14" cy="42" r="2" fill="#555"/>
+        <circle cx="20" cy="42" r="2" fill="#555"/>
+        <circle cx="26" cy="42" r="2" fill="#555"/>
+        <circle cx="32" cy="42" r="2" fill="#555"/>
+        <circle cx="38" cy="42" r="2" fill="#555"/>
+        <rect x="2" y="8" width="51" height="14" rx="6" fill="#2a2530" stroke="#000" stroke-width="2"/>
+        <rect x="6" y="11" width="43" height="8" rx="3" fill="#1a1820"/>
+        <circle cx="10" cy="15" r="2" fill="#555"/>
+        <circle cx="45" cy="15" r="2" fill="#555"/>
+      </svg>
+      <span class="obj-label">電話機</span>
+    </div>
+
+    <!-- ノートPC (テーブル上) -->
+    <div class="obj obj-pc" data-id="2" onclick="openLocation(2)">
+      <svg viewBox="0 0 90 60" xmlns="http://www.w3.org/2000/svg">
+        <!-- 画面 -->
+        <rect x="10" y="4" width="70" height="44" rx="2" fill="#1a1820" stroke="#000" stroke-width="2"/>
+        <rect x="13" y="7" width="64" height="38" fill="#0a3a5a"/>
+        <rect x="16" y="10" width="58" height="3" fill="#1a4a6a"/>
+        <rect x="16" y="16" width="40" height="2" fill="#2a5a7a"/>
+        <rect x="16" y="20" width="50" height="2" fill="#2a5a7a"/>
+        <rect x="16" y="24" width="35" height="2" fill="#2a5a7a"/>
+        <rect x="16" y="30" width="45" height="2" fill="#ef476f"/>
+        <rect x="16" y="34" width="30" height="2" fill="#2a5a7a"/>
+        <rect x="16" y="38" width="40" height="2" fill="#2a5a7a"/>
+        <!-- キーボード部分 -->
+        <polygon points="6,48 84,48 88,56 2,56" fill="#2a2530" stroke="#000" stroke-width="2"/>
+        <rect x="35" y="51" width="20" height="1.5" fill="#555"/>
+      </svg>
+      <span class="obj-label">ノートPC</span>
+    </div>
+
+    <!-- 書類棚 -->
+    <div class="obj obj-cabinet" data-id="3" onclick="openLocation(3)">
+      <svg viewBox="0 0 70 90" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="4" width="62" height="82" fill="#3a2818" stroke="#1a0f08" stroke-width="3"/>
+        <!-- 引き出し1 -->
+        <rect x="8" y="8" width="54" height="22" fill="#5a3825" stroke="#1a0f08" stroke-width="1.5"/>
+        <rect x="30" y="17" width="10" height="3" fill="#2a1810"/>
+        <!-- 引き出し2 -->
+        <rect x="8" y="32" width="54" height="22" fill="#5a3825" stroke="#1a0f08" stroke-width="1.5"/>
+        <rect x="30" y="41" width="10" height="3" fill="#2a1810"/>
+        <!-- 引き出し3 -->
+        <rect x="8" y="56" width="54" height="26" fill="#5a3825" stroke="#1a0f08" stroke-width="1.5"/>
+        <rect x="30" y="67" width="10" height="3" fill="#2a1810"/>
+        <!-- ハイライト -->
+        <line x1="6" y1="6" x2="64" y2="6" stroke="#7a5538" stroke-width="1"/>
+      </svg>
+      <span class="obj-label">書類棚</span>
+    </div>
+
+    <!-- 扉 -->
+    <div class="obj obj-door" data-id="4" onclick="openLocation(4)">
+      <svg viewBox="0 0 90 110" xmlns="http://www.w3.org/2000/svg">
+        <!-- 枠 -->
+        <rect x="4" y="4" width="82" height="102" fill="#1a0f08" stroke="#000" stroke-width="2"/>
+        <!-- 扉本体 -->
+        <rect x="8" y="8" width="74" height="94" fill="#5a3825" stroke="#1a0f08" stroke-width="1"/>
+        <!-- 装飾パネル -->
+        <rect x="14" y="14" width="62" height="36" fill="none" stroke="#3a2818" stroke-width="2"/>
+        <rect x="14" y="56" width="62" height="40" fill="none" stroke="#3a2818" stroke-width="2"/>
+        <!-- パネル内 -->
+        <rect x="18" y="18" width="54" height="28" fill="#4a2c18"/>
+        <rect x="18" y="60" width="54" height="32" fill="#4a2c18"/>
+        <!-- ドアノブ -->
+        <circle cx="74" cy="60" r="3.5" fill="#ffd166" stroke="#000" stroke-width="1.5"/>
+        <circle cx="74" cy="60" r="1.5" fill="#000"/>
+        <!-- 鍵穴 -->
+        <rect x="71" y="68" width="6" height="8" fill="#000"/>
+        <circle cx="74" cy="71" r="1.5" fill="#ffd166"/>
+        <!-- EXITサイン -->
+        <rect x="22" y="2" width="46" height="6" fill="#ef476f" stroke="#000" stroke-width="1"/>
+        <text x="45" y="7" font-size="5" text-anchor="middle" fill="#fff" font-weight="bold">EXIT</text>
+      </svg>
+      <span class="obj-label">扉</span>
+    </div>
+
+    <div class="hint-banner" id="hint">
+      <span class="em">▼</span> 室内の<span class="em">5つの場所</span>を調べて謎を解け <span class="em">▼</span>
+    </div>
+  </div>
+
+  <!-- ───── 問題モーダル ───── -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-loc">
+          <span class="icon" id="modalIcon">🕗</span>
+          <span id="modalLoc">壁掛け時計</span>
+          <span class="progress" id="modalProgress">Q1/2</span>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
       </div>
-      <div class="question-body">
-        <h2 class="question-text" id="q-text"></h2>
-        <div class="choices" id="q-choices"></div>
-        <div class="explanation" id="q-explanation">
-          <div class="exp-label">── 解説 ──</div>
-          <div class="exp-text" id="q-explanation-text"></div>
+      <div class="modal-body">
+        <div class="modal-scene" id="modalScene"></div>
+        <div class="modal-q" id="modalQ"></div>
+        <div class="modal-choices" id="modalChoices"></div>
+        <div class="modal-result" id="modalResult">
+          <div class="result-title" id="resultTitle"></div>
+          <div class="result-text" id="resultText"></div>
         </div>
-        <div class="next-wrap" id="next-wrap">
-          <button class="btn" id="next-btn" onclick="nextQuestion()">
-            <span id="next-label">次の問題へ</span> <span class="arrow">→</span>
-          </button>
-        </div>
+        <button class="modal-continue" id="modalContinue" onclick="nextOrClose()" style="display:none">次へ</button>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="screen" id="result-screen">
-    <div class="result-card">
-      <div class="result-stamp">── 受講結果 ──</div>
-      <div class="result-rank" id="result-rank">免許皆伝</div>
-      <div class="result-score-box">
-        <div class="result-score">
-          <span class="num" id="result-score">10</span><span class="total">／ 10</span>
-        </div>
-        <div class="result-score-label">CORRECT ANSWERS</div>
+  <!-- 鍵獲得演出 -->
+  <div class="key-pop" id="keyPop">🔑</div>
+
+  <!-- ───── エンディング ───── -->
+  <div class="ending" id="ending">
+    <div class="end-icon" id="endIcon">🎉</div>
+    <div class="end-title" id="endTitle">脱出成功!</div>
+    <div class="end-message" id="endMessage"></div>
+    <div class="end-stats">
+      <div class="end-stat">
+        <span class="num" id="endTime">--</span>
+        残り時間
       </div>
-      <div class="result-percent" id="result-percent">正答率 100%</div>
-      <p class="result-message" id="result-message"></p>
-      <div class="result-actions">
-        <button class="btn" onclick="startQuiz()">
-          もう一度受講する <span class="arrow">↻</span>
-        </button>
-        <button class="btn ghost" onclick="shareResult()">
-          結果を共有
-        </button>
+      <div class="end-stat">
+        <span class="num" id="endKeys">0</span>
+        獲得鍵
+      </div>
+      <div class="end-stat">
+        <span class="num" id="endCorrect">0</span>
+        正答数
       </div>
     </div>
-  </section>
+    <div class="end-actions">
+      <button class="btn-end" onclick="restart()">もう一度</button>
+      <button class="btn-end ghost" onclick="shareResult()">シェア</button>
+    </div>
+  </div>
 
-  <footer class="colophon">
-    <span>© 2026 FRESHMAN MANNERS</span>
-    <span>BUILT WITH CARE</span>
-  </footer>
 </div>
 
 <script>
-const quizData=[
-  {category:"訪問",q:"取引先を訪問した際、コートを脱ぐタイミングとして最も適切なものはどれですか？",choices:["受付で名前を告げた後","建物に入る前","応接室に通された後","相手が現れた時"],answer:1,explanation:"コートは建物に入る前に脱ぐのがマナーです。脱いだコートは裏返しにして腕にかけ、ほこりなどが相手のオフィスに落ちないよう配慮しましょう。"},
-  {category:"名刺交換",q:"名刺交換で正しい作法はどれですか？",choices:["テーブル越しに交換する","相手より低い位置で差し出す","片手で受け取る","受け取ったらすぐポケットにしまう"],answer:1,explanation:"名刺は相手より低い位置で両手を添えて差し出すのが基本です。テーブル越しの交換は失礼にあたります。受け取った名刺は名刺入れの上に置き、商談中はテーブルに出しておきましょう。"},
-  {category:"メール",q:"ビジネスメールで「各位」の正しい使い方はどれですか？",choices:["各位様","各位殿","○○部各位","各位御中"],answer:2,explanation:"「各位」自体が敬称なので、「○○部各位」が正しい使い方です。「各位様」「各位殿」は敬称の重複（二重敬語）にあたるため避けましょう。"},
-  {category:"案内",q:"エレベーターで上司やお客様と乗る場合、最も適切な行動はどれですか？",choices:["先に乗って「開」ボタンを押す","お客様に先に乗っていただく","一緒に同時に乗る","階段を使うよう提案する"],answer:0,explanation:"エレベーターでは案内する側が先に乗り込み、「開」ボタンを押してお客様を迎え入れるのが正しいマナーです。降りる際はお客様を先に降ろしましょう。"},
-  {category:"電話",q:"電話応対で保留にする場合、何秒以内が目安とされていますか？",choices:["10秒以内","30秒以内","1分以内","3分以内"],answer:1,explanation:"電話の保留は30秒以内が目安です。それ以上かかりそうな場合は、一度電話に出て状況を説明し、折り返しを提案するのがマナーです。"},
-  {category:"席次",q:"上座・下座について、応接室で最も上座にあたる席はどこですか？",choices:["入り口に最も近い席","入り口から最も遠い席","窓際の席","テレビが見やすい席"],answer:1,explanation:"日本のビジネスマナーでは、入り口から最も遠い席が上座です。お客様や目上の方を上座にご案内しましょう。一般的に、入り口に最も近い席が下座（案内する側の席）になります。"},
-  {category:"作法",q:"お辞儀の種類で「敬礼」の角度として正しいものはどれですか？",choices:["15度","30度","45度","90度"],answer:1,explanation:"敬礼は約30度のお辞儀で、一般的なビジネスシーンで最もよく使われます。15度は会釈（すれ違い時の挨拶など）、45度は最敬礼（深い感謝やお詫びの場面）です。"},
-  {category:"メール",q:"ビジネスメールの件名で最も適切なものはどれですか？",choices:["お世話になっております","【ご確認】4/15会議の議事録送付","こんにちは","重要！！絶対読んでください"],answer:1,explanation:"件名は用件がひと目でわかるよう、具体的かつ簡潔に書くのがマナーです。【】で分類を示し、日付や内容を明記すると相手が整理しやすくなります。挨拶文や曖昧な表現は避けましょう。"},
-  {category:"電話",q:"電話を受けた際、相手の名前を聞き取れなかった場合の対応として最も適切なものはどれですか？",choices:["聞こえたふりをしてそのまま対応する","「もう一度お名前をお願いできますか？」と聞く","「恐れ入りますが、もう一度お名前をお伺いしてもよろしいでしょうか？」と聞く","無言で待つ"],answer:2,explanation:"「恐れ入りますが」とクッション言葉を添えて丁寧に聞き直すのが正解です。聞き取れないまま対応を続けると、後で大きなトラブルにつながる可能性があります。"},
-  {category:"気配り",q:"取引先へのお礼メールを送るタイミングとして最も適切なものはどれですか？",choices:["1週間以内","3日以内","翌日まで","当日中"],answer:3,explanation:"お礼メールは当日中に送るのがビジネスマナーの基本です。訪問や打ち合わせの記憶が新しいうちに感謝の気持ちを伝えることで、好印象を与え、良好な関係構築につながります。"}
+// 各場所に2問ずつ、合計10問
+const locations=[
+  {
+    id:0,
+    icon:'🕗',
+    name:'壁掛け時計',
+    questions:[
+      {
+        scene:'時計の文字盤に走り書きのメモが貼られている。\n『始業前の心得を答えよ』',
+        q:"出社時刻として最も適切なのはどれ？",
+        choices:[
+          "始業時刻ちょうどに席につく",
+          "始業の5〜10分前に到着し、業務開始の準備をしておく",
+          "始業の30分以上前に到着して仕事を始める",
+          "余裕を持って始業の1時間前には到着する"
+        ],
+        answer:1,
+        explanation:"始業の5〜10分前に到着し、定時から即座に業務を始められる状態にしておくのが基本。早すぎる出社は相手の準備に迷惑をかけたり、サービス残業を強いる空気を作る場合もある。"
+      },
+      {
+        scene:'時計の裏側にもう一枚メモが──\n『遅刻が確実なときの対応は？』',
+        q:"電車遅延で遅刻が確実になった時、最初にすべき行動は？",
+        choices:[
+          "とりあえず急いで会社に向かう",
+          "駅に着いてから連絡する",
+          "遅刻が分かった時点で、電話で上司に連絡し到着予定を伝える",
+          "メールやチャットで遅刻連絡だけ送っておく"
+        ],
+        answer:2,
+        explanation:"遅刻が確定した時点で『電話で』直属の上司に連絡し、理由と到着予定時刻を伝えるのが鉄則。メールやチャットだけでは気付かれない可能性があり、緊急時は声で伝えるのが基本。"
+      }
+    ]
+  },
+  {
+    id:1,
+    icon:'☎️',
+    name:'電話機',
+    questions:[
+      {
+        scene:'突然、机の電話が鳴り響いた。\n『3コール以内に正しく出よ』',
+        q:"会社の電話に出る時の第一声として最も適切なのは？",
+        choices:[
+          "もしもし、〇〇です",
+          "はい、〇〇株式会社でございます",
+          "お電話ありがとうございます、〇〇です",
+          "はい、何でしょうか"
+        ],
+        answer:1,
+        explanation:"会社の電話で『もしもし』はNG。「はい、〇〇株式会社（部署名）でございます」と社名・部署名を名乗るのが基本。3コール以上待たせた場合は「お待たせいたしました」を加える。"
+      },
+      {
+        scene:'電話の相手が言った──\n『田中部長はいらっしゃいますか？』\nしかし田中部長は外出中だ。',
+        q:"自社の上司について取引先に伝える時、正しい言い方は？",
+        choices:[
+          "田中部長は外出されています",
+          "田中はただいま外出しております",
+          "田中部長様は不在でいらっしゃいます",
+          "田中さんは出かけてます"
+        ],
+        answer:1,
+        explanation:"社外の人に対して自社の人間を伝える時は、たとえ上司でも敬称（部長・さん）や尊敬語を付けず、呼び捨て＋謙譲語が正解。「田中はただいま外出しております」が正しい。"
+      }
+    ]
+  },
+  {
+    id:2,
+    icon:'💻',
+    name:'ノートPC',
+    questions:[
+      {
+        scene:'PCの画面に、書きかけのメールが──\n『取引先への謝罪メールを完成させよ』',
+        q:"クライアントへの謝罪メールの件名として最も適切なのは？",
+        choices:[
+          "ごめんなさい",
+          "【お詫び】納品遅延のご連絡",
+          "重要！至急ご確認ください",
+          "お世話になっております"
+        ],
+        answer:1,
+        explanation:"件名は【】で内容を分類し、要件を一目で分かるように。「【お詫び】〇〇の件」のように何についての謝罪かが明確にわかる件名が理想。「重要」「至急」を多用するのは逆効果。"
+      },
+      {
+        scene:'もう一通、CCに上司を入れる必要がある。\n『CCの正しい使い方を答えよ』',
+        q:"メールのCCの使い方として正しいのは？",
+        choices:[
+          "返信が必要な人をCCに入れる",
+          "情報共有したい関係者をCCに入れ、本文中で「CCに上司を入れています」と明記",
+          "とりあえず関係しそうな人を全員CCに入れる",
+          "CCの人にも「ご返信ください」と書く"
+        ],
+        answer:1,
+        explanation:"CCは「情報共有のみ・返信不要」の人に使う。CCに誰を入れているかは本文中で明示するのがマナー。むやみに大勢をCCに入れるのは情報漏洩リスクや相手の負担増につながる。"
+      }
+    ]
+  },
+  {
+    id:3,
+    icon:'🗄️',
+    name:'書類棚',
+    questions:[
+      {
+        scene:'棚を開けると、未整理の名刺が散乱している。\n『正しい受け取り方を答えよ』',
+        q:"取引先から名刺を受け取る際の正しい作法は？",
+        choices:[
+          "片手で素早く受け取り、すぐ名刺入れにしまう",
+          "両手で胸の高さで受け取り、「頂戴いたします」と一言添える",
+          "テーブル越しに受け取り、ポケットに入れる",
+          "右手で受け取り、左手は名刺入れに添える"
+        ],
+        answer:1,
+        explanation:"名刺は両手で胸の高さで受け取り「頂戴いたします」「お預かりいたします」と一言添えるのが基本。受け取った名刺は商談中はテーブル（または名刺入れ）の上に置き、すぐにしまわない。"
+      },
+      {
+        scene:'棚の奥に、整理された顧客リスト。\n『複数人と同時に名刺交換するときは？』',
+        q:"同時に複数の取引先と名刺交換する場合の正しい順序は？",
+        choices:[
+          "席に近い人から順番に",
+          "役職の高い人から順番に",
+          "話しかけてくれた順に",
+          "全員に同時に渡して回す"
+        ],
+        answer:1,
+        explanation:"複数人と名刺交換する時は、必ず役職の高い人（先方の責任者）から順に行うのが鉄則。これは相手への敬意を示す最も基本的な作法であり、順序を間違えると失礼にあたる。"
+      }
+    ]
+  },
+  {
+    id:4,
+    icon:'🚪',
+    name:'扉',
+    questions:[
+      {
+        scene:'重厚な扉の前に立つ。鍵穴の上に金色の銘板。\n『入室時の作法を答えよ』',
+        q:"会議室や面接室に入室する際の正しいノックの回数は？",
+        choices:[
+          "1回（合図）",
+          "2回（トイレ確認）",
+          "3回（一般・親しい間柄）",
+          "4回（国際標準・ビジネス正式）"
+        ],
+        answer:3,
+        explanation:"国際的なプロトコルマナー（4回ノック）が正式。2回はトイレノック、3回は親しい間柄での簡易ノック、4回がビジネス正式とされる。日本でも面接や重要な場面では4回が推奨される。"
+      },
+      {
+        scene:'銘板にもう一行──\n『退室の作法を答えよ。これが最後の問いだ。』',
+        q:"商談終了後、退室する時の正しいマナーは？",
+        choices:[
+          "ドアの前で軽く会釈してすぐ退室",
+          "ドアを開けてから振り返り、「失礼いたします」と一礼してから退室",
+          "「お疲れさまでした」と言って退室",
+          "黙って退室するのが一番丁寧"
+        ],
+        answer:1,
+        explanation:"退室時はドアの前で相手の方を向き「失礼いたします」と一礼してからドアを開ける。ドアは音を立てず、相手に背を向けすぎない角度で閉める。最後の印象を決める重要な瞬間。"
+      }
+    ]
+  }
 ];
 
-let currentQ=0,score=0,answered=false;
-const letters=['ア','イ','ウ','エ'];
+const TOTAL_TIME=600;
+let timeLeft=TOTAL_TIME;
+let timerInterval=null;
+let keysGained=0;
+let totalCorrect=0;
+let solved=[false,false,false,false,false];
+let locProgress=[0,0,0,0,0]; // 各場所で何問正解したか
+let currentLocId=null;
+let currentQIndex=0;
+let answered=false;
+let gameActive=false;
 
-function startQuiz(){
-  currentQ=0;score=0;
-  document.getElementById('title-screen').classList.remove('active');
-  document.getElementById('result-screen').classList.remove('active');
-  document.getElementById('quiz-screen').classList.add('active');
-  renderQuestion();
+const $=id=>document.getElementById(id);
+
+function startGame(){
+  $('opening').style.display='none';
+  $('ending').classList.remove('show','win','lose');
+  $('timer').classList.remove('warning');
+  timeLeft=TOTAL_TIME;
+  keysGained=0;
+  totalCorrect=0;
+  solved=[false,false,false,false,false];
+  locProgress=[0,0,0,0,0];
+  gameActive=true;
+  updateHUD();
+  document.querySelectorAll('.obj').forEach(el=>el.classList.remove('solved'));
+  startTimer();
 }
 
-function renderQuestion(){
-  answered=false;
-  const d=quizData[currentQ];
-  const bar=document.getElementById('progress-bar');
-  bar.innerHTML='';
-  for(let i=0;i<quizData.length;i++){
-    const cell=document.createElement('div');
-    cell.className='progress-cell';
-    if(i<currentQ)cell.classList.add('done');
-    else if(i===currentQ)cell.classList.add('current');
-    bar.appendChild(cell);
-  }
-  document.getElementById('progress-percent').textContent=Math.round((currentQ/quizData.length)*100)+'%';
-  document.getElementById('q-current').textContent=currentQ+1;
-  document.getElementById('q-category').textContent=d.category;
-  document.getElementById('q-text').textContent=d.q;
+function startTimer(){
+  if(timerInterval)clearInterval(timerInterval);
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    updateHUD();
+    if(timeLeft<=60)$('timer').classList.add('warning');
+    if(timeLeft<=0){
+      clearInterval(timerInterval);
+      gameOver(false);
+    }
+  },1000);
+}
 
-  const choices=document.getElementById('q-choices');
-  choices.innerHTML='';
-  d.choices.forEach((c,i)=>{
+function updateHUD(){
+  const m=Math.floor(timeLeft/60);
+  const s=timeLeft%60;
+  $('timer').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  $('keysCount').textContent=keysGained;
+}
+
+function openLocation(id){
+  if(!gameActive||solved[id])return;
+  currentLocId=id;
+  currentQIndex=locProgress[id]; // 続きから or 最初から
+  showQuestion();
+}
+
+function showQuestion(){
+  answered=false;
+  const loc=locations[currentLocId];
+  const q=loc.questions[currentQIndex];
+
+  $('modalIcon').textContent=loc.icon;
+  $('modalLoc').textContent=loc.name;
+  $('modalProgress').textContent='Q'+(currentQIndex+1)+'/2';
+  $('modalScene').innerHTML=q.scene.replace(/\n/g,'<br>');
+  $('modalQ').textContent=q.q;
+
+  const ch=$('modalChoices');
+  ch.innerHTML='';
+  q.choices.forEach((c,i)=>{
     const btn=document.createElement('button');
-    btn.className='choice-btn';
-    btn.innerHTML='<span class="choice-letter">'+letters[i]+'</span><span class="choice-text">'+c+'</span>';
-    btn.onclick=()=>selectAnswer(i);
-    choices.appendChild(btn);
+    btn.className='modal-choice';
+    btn.innerHTML='<span class="choice-num">'+(i+1)+'.</span><span>'+c+'</span>';
+    btn.onclick=()=>selectChoice(i);
+    ch.appendChild(btn);
   });
 
-  document.getElementById('q-explanation').classList.remove('show');
-  document.getElementById('next-wrap').classList.remove('show');
-  document.getElementById('next-label').textContent=currentQ<quizData.length-1?'次の問題へ':'結果を見る';
+  $('modalResult').classList.remove('show','success','fail');
+  $('modalContinue').style.display='none';
+  $('modalOverlay').classList.add('show');
 }
 
-function selectAnswer(idx){
+function selectChoice(idx){
   if(answered)return;
   answered=true;
-  const d=quizData[currentQ];
-  const btns=document.querySelectorAll('.choice-btn');
+  const loc=locations[currentLocId];
+  const q=loc.questions[currentQIndex];
+  const btns=document.querySelectorAll('.modal-choice');
   btns.forEach((b,i)=>{
     b.disabled=true;
-    if(i===d.answer){
-      b.classList.add('correct');
-      const m=document.createElement('span');
-      m.className='choice-mark';m.textContent='○';
-      b.appendChild(m);
-    }else if(i===idx){
-      b.classList.add('wrong');
-      const m=document.createElement('span');
-      m.className='choice-mark';m.textContent='×';
-      b.appendChild(m);
-    }
+    if(i===q.answer)b.classList.add('correct');
+    else if(i===idx)b.classList.add('wrong');
   });
-  if(idx===d.answer)score++;
-  document.getElementById('q-explanation-text').textContent=d.explanation;
-  document.getElementById('q-explanation').classList.add('show');
-  document.getElementById('next-wrap').classList.add('show');
-}
 
-function nextQuestion(){
-  currentQ++;
-  if(currentQ<quizData.length){
-    renderQuestion();
-    window.scrollTo({top:0,behavior:'smooth'});
+  const result=$('modalResult');
+  if(idx===q.answer){
+    totalCorrect++;
+    locProgress[currentLocId]=currentQIndex+1;
+    result.classList.add('show','success');
+    $('resultTitle').textContent='✓ 正解！';
+    $('resultText').textContent=q.explanation;
+
+    if(locProgress[currentLocId]>=2){
+      // この場所の鍵獲得！
+      keysGained++;
+      solved[currentLocId]=true;
+      $('resultTitle').textContent='✓ 正解！ 鍵を獲得した！';
+      setTimeout(()=>showKeyPop(),300);
+      setTimeout(()=>{
+        document.querySelector('.obj[data-id="'+currentLocId+'"]').classList.add('solved');
+        updateHUD();
+      },800);
+    }
   }else{
-    showResult();
+    timeLeft=Math.max(0,timeLeft-30);
+    updateHUD();
+    result.classList.add('show','fail');
+    $('resultTitle').textContent='✗ 不正解 （-30秒）';
+    $('resultText').textContent=q.explanation;
+  }
+  $('modalContinue').style.display='block';
+  // ボタンのラベル切替
+  const cont=$('modalContinue');
+  if(idx===q.answer && currentQIndex<1){
+    cont.textContent='次の問題へ →';
+  }else if(idx===q.answer && currentQIndex>=1){
+    cont.textContent='閉じる';
+  }else{
+    cont.textContent='閉じる（再挑戦可）';
   }
 }
 
-function showResult(){
-  document.getElementById('quiz-screen').classList.remove('active');
-  document.getElementById('result-screen').classList.add('active');
-  const pct=Math.round(score/quizData.length*100);
-  document.getElementById('result-score').textContent=score;
-  document.getElementById('result-percent').textContent='正答率 '+pct+'%';
-
-  let rank,msg;
-  if(pct===100){
-    rank='<span class="em">免許皆伝</span>';
-    msg='見事、全問正解です。新卒とは思えぬ完璧なビジネスマナーの素養。明日からの現場でも、自信を持って振る舞えるはずです。';
-  }else if(pct>=80){
-    rank='秀 才';
-    msg='ほぼ完璧な理解度です。間違えた問題だけ復習すれば、あなたのマナーは万全。研修の総仕上げとしては申し分ありません。';
-  }else if(pct>=60){
-    rank='精 進';
-    msg='基本はおさえられています。あと一歩で実践レベル。間違えた箇所の解説を読み返し、もう一度挑戦してみましょう。';
-  }else if(pct>=40){
-    rank='見 習';
-    msg='まだ伸びしろがあります。ビジネスマナーは知識よりも反復が肝心。何度か挑戦するうちに、自然と身につくはずです。';
+function nextOrClose(){
+  const loc=locations[currentLocId];
+  const q=loc.questions[currentQIndex];
+  // 正解かつまだ次の問題があれば次へ
+  if(answered && locProgress[currentLocId]>currentQIndex && currentQIndex<1){
+    currentQIndex++;
+    showQuestion();
   }else{
-    rank='初 学';
-    msg='まずは基本から。各問題の解説を丁寧に読みながら、繰り返し挑戦してみてください。マナーは一日にしてならず。';
+    closeModal();
   }
-  document.getElementById('result-rank').innerHTML=rank;
-  document.getElementById('result-message').textContent=msg;
+}
+
+function closeModal(){
+  $('modalOverlay').classList.remove('show');
+  // 全鍵集まったらクリア
+  if(keysGained>=5){
+    setTimeout(()=>gameOver(true),500);
+  }
+}
+
+function showKeyPop(){
+  const pop=$('keyPop');
+  pop.classList.remove('show');
+  void pop.offsetWidth;
+  pop.classList.add('show');
+}
+
+function gameOver(success){
+  gameActive=false;
+  if(timerInterval)clearInterval(timerInterval);
+  const ending=$('ending');
+  ending.className='ending '+(success?'win':'lose')+' show';
+
+  const m=Math.floor(timeLeft/60);
+  const s=timeLeft%60;
+  $('endTime').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  $('endKeys').textContent=keysGained+'/5';
+  $('endCorrect').textContent=totalCorrect+'/10';
+
+  if(success){
+    $('endIcon').textContent='🎉';
+    $('endTitle').textContent='脱出成功!';
+    let praise;
+    if(timeLeft>=480 && totalCorrect===10)praise='伝説の新人爆誕！全問正解＆驚異のスピード脱出。君は将来の社長候補だ。';
+    else if(timeLeft>=300)praise='見事な手際！基本マナーは完璧に身についている。明日から胸を張って働こう。';
+    else praise='なんとか間に合った…！次はもっと余裕を持って挑戦してみよう。';
+    $('endMessage').innerHTML='<p>『おめでとうございます。あなたは新卒研修を見事に突破しました。』</p><p>『明日から、本配属です。期待しています。』</p><p class="praise">── '+praise+'</p>';
+  }else{
+    $('endIcon').textContent='💀';
+    $('endTitle').textContent='脱出失敗';
+    let comment;
+    if(keysGained>=4)comment='あと一歩だった…！最後の壁を越えられなかった。リトライで完走を目指そう。';
+    else if(keysGained>=2)comment='基礎は分かっているが、抜けが多い。解説を読み返して再挑戦！';
+    else comment='ビジネスマナーの基礎から見直す必要がある。何度でも挑戦できる。';
+    $('endMessage').innerHTML='<p>『時間切れです。あなたは脱出できませんでした。』</p><p>『──残念ながら、内定取消です。』</p><p class="blame">── '+comment+'</p>';
+  }
+}
+
+function restart(){
+  startGame();
 }
 
 function shareResult(){
-  const pct=Math.round(score/quizData.length*100);
-  const text='新卒ビジネスマナー研修クイズ｜'+score+'/10問正解（正答率'+pct+'%）\n'+location.href;
+  const m=Math.floor(timeLeft/60);
+  const s=timeLeft%60;
+  const time=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  const text='【会議室からの脱出】鍵'+keysGained+'/5｜正答'+totalCorrect+'/10｜残り時間'+time+'\n'+location.href;
   if(navigator.share){
-    navigator.share({title:'ビジネスマナー研修クイズ',text:text,url:location.href}).catch(()=>{});
+    navigator.share({title:'会議室からの脱出',text:text,url:location.href}).catch(()=>{});
   }else{
     navigator.clipboard.writeText(text).then(()=>{
-      alert('結果をクリップボードにコピーしました');
+      alert('結果をコピーしました！');
     });
   }
 }
