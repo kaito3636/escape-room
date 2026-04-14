@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -134,18 +135,18 @@ html,body{
   pointer-events:none;
 }
 .obj.solved .obj-label{color:#555;text-shadow:1px 1px 0 #000}
-.obj-monitor{bottom:20%;right:8%;width:80px;height:60px}
-.obj-mirror{top:8%;right:8%;width:60px;height:90px}
-.obj-phone{top:42%;left:6%;width:55px;height:55px}
-.obj-pc{top:46%;left:50%;transform:translateX(-50%);width:90px;height:60px}
+.obj-monitor{top:38%;left:14%;width:75px;height:55px}
+.obj-mirror{top:14%;right:4%;width:55px;height:130px}
+.obj-phone{top:46%;right:18%;width:50px;height:50px}
+.obj-pc{top:54%;left:50%;transform:translateX(-50%);width:90px;height:60px}
 .obj-pc:not(.solved):hover{transform:translateX(-50%) scale(1.05)}
-.obj-cabinet{top:36%;right:6%;width:70px;height:90px}
-.obj-chair{bottom:18%;left:12%;width:60px;height:70px}
-.obj-door{bottom:30%;left:50%;transform:translateX(-50%);width:90px;height:110px;cursor:default}
+.obj-cabinet{bottom:8%;right:4%;width:75px;height:100px}
+.obj-chair{bottom:6%;left:6%;width:65px;height:80px}
+.obj-door{bottom:30%;left:50%;transform:translateX(-50%);width:90px;height:110px;cursor:default;animation:none!important;filter:none!important}
 .obj-door:not(.solved):hover{transform:translateX(-50%);filter:none}
 .obj-door.unlocked{cursor:pointer}
-.obj-door.unlocked:hover{transform:translateX(-50%) scale(1.05);filter:brightness(1.4) drop-shadow(0 0 20px var(--gold))}
-.obj-door.unlocked{animation:doorReady 1.5s ease-in-out infinite}
+.obj-door.unlocked:hover{transform:translateX(-50%) scale(1.05);filter:brightness(1.4) drop-shadow(0 0 20px var(--gold))!important}
+.obj-door.unlocked{animation:doorReady 1.5s ease-in-out infinite!important}
 @keyframes doorReady{
   0%,100%{filter:drop-shadow(0 0 8px var(--gold))}
   50%{filter:drop-shadow(0 0 20px var(--gold)) brightness(1.2)}
@@ -674,10 +675,10 @@ html,body{
     <div class="op-sub">ESCAPE FROM THE MEETING ROOM</div>
 
     <div class="op-story">
-      <p>20XX年4月1日 午前8時。</p>
-      <p>新卒社員のあなたは、配属初日。指定された<span class="em">第3会議室</span>に通された瞬間──カチャリ、と背後で施錠の音がした。</p>
+      <p>20XX年4月14日 午後1時。</p>
+      <p>新卒社員のあなたは、入社から<span class="em">2週間の集合研修</span>を経て、いよいよ最終日を迎えていた。指定された<span class="em">第3会議室</span>に通された瞬間──カチャリ、と背後で施錠の音がした。</p>
       <p>机の上に置かれた一枚の紙。</p>
-      <p>『これは<span class="em">最終マナー研修</span>です。室内のあらゆる物に隠された問いに正解し、<span class="em">5分以内</span>に脱出しなさい。』</p>
+      <p>『これは<span class="em">最終マナー研修</span>です。これまで学んだ知識を試します。室内のあらゆる物に隠された問いに正解し、<span class="em">5分以内</span>に脱出しなさい。』</p>
       <p>『<span class="em">6つの鍵</span>を集めて扉を開けよ。<span class="red">失敗すれば研修やり直しです。</span>』</p>
     </div>
 
