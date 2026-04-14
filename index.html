@@ -135,6 +135,8 @@ html,body{
   pointer-events:none;
 }
 .obj.solved .obj-label{color:#555;text-shadow:1px 1px 0 #000}
+.obj-monitor{bottom:20%;right:8%;width:80px;height:60px}
+.obj-mirror{top:8%;right:8%;width:60px;height:90px}
 .obj-phone{top:42%;left:6%;width:55px;height:55px}
 .obj-pc{top:46%;left:50%;transform:translateX(-50%);width:90px;height:60px}
 .obj-pc:not(.solved):hover{transform:translateX(-50%) scale(1.05)}
@@ -149,7 +151,6 @@ html,body{
   0%,100%{filter:drop-shadow(0 0 8px var(--gold))}
   50%{filter:drop-shadow(0 0 20px var(--gold)) brightness(1.2)}
 }
-/* オープニング */
 .opening{
   position:absolute;
   inset:0;
@@ -230,7 +231,6 @@ html,body{
   transform:translateY(3px);
   box-shadow:0 2px 0 #000,0 4px 10px rgba(0,0,0,.6);
 }
-/* モーダル */
 .modal-overlay{
   position:absolute;
   inset:0;
@@ -319,6 +319,19 @@ html,body{
   color:#fff;
   padding-left:10px;
   border-left:3px solid var(--red);
+}
+.modal-q .ng{
+  color:var(--red);
+  font-size:18px;
+  font-weight:900;
+  background:rgba(239,71,111,.18);
+  padding:2px 8px;
+  border:2px solid var(--red);
+  border-radius:4px;
+  margin:0 2px;
+  text-shadow:0 0 8px rgba(239,71,111,.6);
+  letter-spacing:.05em;
+  display:inline-block;
 }
 .modal-choices{display:flex;flex-direction:column;gap:7px}
 .modal-choice{
@@ -537,7 +550,6 @@ html,body{
 <body>
 <div class="app">
 
-  <!-- オープニング -->
   <div class="opening" id="opening">
     <div class="op-title">会議室からの脱出</div>
     <div class="op-sub">ESCAPE FROM THE MEETING ROOM</div>
@@ -546,21 +558,20 @@ html,body{
       <p>20XX年4月1日 午前8時。</p>
       <p>新卒社員のあなたは、配属初日。指定された<span class="em">第3会議室</span>に通された瞬間──カチャリ、と背後で施錠の音がした。</p>
       <p>机の上に置かれた一枚の紙。</p>
-      <p>『これは<span class="em">最終マナー研修</span>です。室内のあらゆる物に隠された問いに正解し、<span class="em">10分以内</span>に脱出しなさい。』</p>
-      <p>『<span class="em">4つの鍵</span>を集めて扉を開けよ。<span class="red">失敗すれば内定取消です。</span>』</p>
+      <p>『これは<span class="em">最終マナー研修</span>です。室内のあらゆる物に隠された問いに正解し、<span class="em">5分以内</span>に脱出しなさい。』</p>
+      <p>『<span class="em">6つの鍵</span>を集めて扉を開けよ。<span class="red">失敗すれば研修やり直しです。</span>』</p>
     </div>
 
     <div class="op-rules">
       ▼ 操作 ▼<br>
       <span class="em">光るオブジェクト</span>をタップで謎解き開始<br>
-      4箇所、合計<span class="em">6問</span>。全問正解で鍵獲得<br>
+      6箇所、合計<span class="em">8問</span>。全問正解で鍵獲得<br>
       不正解は<span class="em">時間-30秒</span>のペナルティ
     </div>
 
     <button class="btn-start" onclick="startGame()">入室する</button>
   </div>
 
-  <!-- 部屋画面 -->
   <div class="room" id="room">
 
     <svg class="room-svg" viewBox="0 0 400 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -598,30 +609,7 @@ html,body{
         <animate attributeName="opacity" values="0.95;0.95;0.4;0.95;0.6;0.95" dur="5s" repeatCount="indefinite"/>
       </rect>
 
-      <!-- 壁の絵 (左) -->
-      <g transform="translate(40,140)">
-        <rect width="55" height="70" fill="#3a2a18" stroke="#1a0f08" stroke-width="3"/>
-        <rect x="4" y="4" width="47" height="62" fill="#5a4530"/>
-        <rect x="8" y="8" width="39" height="40" fill="#2a3540"/>
-        <circle cx="27" cy="22" r="6" fill="#ffd166"/>
-        <path d="M 8 48 L 18 35 L 28 42 L 40 28 L 47 36 L 47 48 Z" fill="#1a2530"/>
-        <text x="27" y="60" fill="#8a7050" font-size="6" text-anchor="middle" font-family="serif">座右の銘</text>
-      </g>
-
-      <!-- 賞状 (右) -->
-      <g transform="translate(305,140)">
-        <rect width="55" height="70" fill="#5a4023" stroke="#1a0f08" stroke-width="3"/>
-        <rect x="4" y="4" width="47" height="62" fill="#f0e8d0"/>
-        <text x="27" y="20" fill="#3a2818" font-size="7" text-anchor="middle" font-family="serif" font-weight="bold">表彰状</text>
-        <line x1="10" y1="28" x2="44" y2="28" stroke="#3a2818" stroke-width="0.5"/>
-        <line x1="10" y1="34" x2="44" y2="34" stroke="#3a2818" stroke-width="0.5"/>
-        <line x1="10" y1="40" x2="44" y2="40" stroke="#3a2818" stroke-width="0.5"/>
-        <line x1="10" y1="46" x2="44" y2="46" stroke="#3a2818" stroke-width="0.5"/>
-        <circle cx="40" cy="56" r="5" fill="#c73e1d" stroke="#600" stroke-width="1"/>
-        <text x="40" y="59" fill="#fff" font-size="4" text-anchor="middle" font-weight="bold">印</text>
-      </g>
-
-      <!-- ホワイトボード -->
+      <!-- ホワイトボード（中央上） -->
       <g transform="translate(140,180)">
         <rect width="120" height="70" fill="#1a1018" stroke="#000" stroke-width="3"/>
         <rect x="3" y="3" width="114" height="64" fill="#e8e4d8"/>
@@ -633,7 +621,6 @@ html,body{
         <text x="10" y="63" fill="#1a2840" font-size="6" font-family="sans-serif">・打ち上げ会場確認</text>
       </g>
 
-      <!-- 床 -->
       <polygon points="0,440 400,440 400,700 0,700" fill="url(#floorGrad)"/>
       <polygon points="0,440 400,440 380,700 20,700" fill="url(#carpetPattern)" opacity="0.6"/>
       <line x1="200" y1="440" x2="0" y2="700" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
@@ -682,17 +669,70 @@ html,body{
       </g>
     </svg>
 
-    <!-- HUD -->
     <div class="hud">
-      <div class="timer-display" id="timer">10:00</div>
+      <div class="timer-display" id="timer">5:00</div>
       <div class="keys-display">
         <span class="key-icon">🔑</span>
-        <span id="keysCount">0</span>/4
+        <span id="keysCount">0</span>/6
       </div>
     </div>
 
+    <!-- モニター（オンライン会議用） -->
+    <div class="obj obj-monitor" data-id="0" onclick="openLocation(0)">
+      <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="76" height="48" rx="2" fill="#1a1820" stroke="#000" stroke-width="2"/>
+        <rect x="5" y="5" width="70" height="42" fill="#0a3a5a"/>
+        <!-- ビデオ会議の画面分割 -->
+        <rect x="7" y="7" width="32" height="19" fill="#2a5a7a" stroke="#000" stroke-width="0.5"/>
+        <circle cx="23" cy="14" r="4" fill="#f4a52d"/>
+        <rect x="17" y="18" width="12" height="6" rx="3" fill="#f4a52d"/>
+        <rect x="41" y="7" width="32" height="19" fill="#2a5a7a" stroke="#000" stroke-width="0.5"/>
+        <circle cx="57" cy="14" r="4" fill="#06d6a0"/>
+        <rect x="51" y="18" width="12" height="6" rx="3" fill="#06d6a0"/>
+        <rect x="7" y="28" width="32" height="19" fill="#2a5a7a" stroke="#000" stroke-width="0.5"/>
+        <circle cx="23" cy="35" r="4" fill="#ef476f"/>
+        <rect x="17" y="39" width="12" height="6" rx="3" fill="#ef476f"/>
+        <rect x="41" y="28" width="32" height="19" fill="#2a5a7a" stroke="#000" stroke-width="0.5"/>
+        <circle cx="57" cy="35" r="4" fill="#4cc9f0"/>
+        <rect x="51" y="39" width="12" height="6" rx="3" fill="#4cc9f0"/>
+        <!-- スタンド -->
+        <rect x="36" y="50" width="8" height="6" fill="#2a2530"/>
+        <rect x="28" y="56" width="24" height="3" rx="1" fill="#1a1820" stroke="#000" stroke-width="1"/>
+        <!-- REC dot -->
+        <circle cx="73" cy="6" r="1.5" fill="#ef476f">
+          <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+      <span class="obj-label">モニター</span>
+    </div>
+
+    <!-- 姿見（鏡） -->
+    <div class="obj obj-mirror" data-id="1" onclick="openLocation(1)">
+      <svg viewBox="0 0 60 90" xmlns="http://www.w3.org/2000/svg">
+        <!-- 鏡フレーム -->
+        <rect x="4" y="4" width="52" height="82" rx="2" fill="#3a2818" stroke="#1a0f08" stroke-width="3"/>
+        <rect x="8" y="8" width="44" height="74" fill="#1a2030"/>
+        <!-- 鏡面の映り込み -->
+        <rect x="10" y="10" width="40" height="70" fill="url(#mirrorGrad)"/>
+        <defs>
+          <linearGradient id="mirrorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#3a4555" stop-opacity="0.6"/>
+            <stop offset="50%" stop-color="#1a2030"/>
+            <stop offset="100%" stop-color="#3a4555" stop-opacity="0.4"/>
+          </linearGradient>
+        </defs>
+        <!-- ハイライト -->
+        <line x1="14" y1="14" x2="14" y2="76" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+        <line x1="18" y1="14" x2="18" y2="40" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <!-- 鏡に映ったシルエット -->
+        <circle cx="30" cy="30" r="5" fill="#2a3545"/>
+        <path d="M 22 38 Q 30 35 38 38 L 38 60 L 22 60 Z" fill="#2a3545"/>
+      </svg>
+      <span class="obj-label">姿見</span>
+    </div>
+
     <!-- 電話機 -->
-    <div class="obj obj-phone" data-id="0" onclick="openLocation(0)">
+    <div class="obj obj-phone" data-id="2" onclick="openLocation(2)">
       <svg viewBox="0 0 55 55" xmlns="http://www.w3.org/2000/svg">
         <rect x="6" y="22" width="43" height="28" rx="3" fill="#1a1820" stroke="#000" stroke-width="2"/>
         <rect x="10" y="26" width="35" height="10" rx="1" fill="#3a3340"/>
@@ -710,7 +750,7 @@ html,body{
     </div>
 
     <!-- ノートPC -->
-    <div class="obj obj-pc" data-id="1" onclick="openLocation(1)">
+    <div class="obj obj-pc" data-id="3" onclick="openLocation(3)">
       <svg viewBox="0 0 90 60" xmlns="http://www.w3.org/2000/svg">
         <rect x="10" y="4" width="70" height="44" rx="2" fill="#1a1820" stroke="#000" stroke-width="2"/>
         <rect x="13" y="7" width="64" height="38" fill="#0a3a5a"/>
@@ -728,7 +768,7 @@ html,body{
     </div>
 
     <!-- 書類棚 -->
-    <div class="obj obj-cabinet" data-id="2" onclick="openLocation(2)">
+    <div class="obj obj-cabinet" data-id="4" onclick="openLocation(4)">
       <svg viewBox="0 0 70 90" xmlns="http://www.w3.org/2000/svg">
         <rect x="4" y="4" width="62" height="82" fill="#3a2818" stroke="#1a0f08" stroke-width="3"/>
         <rect x="8" y="8" width="54" height="22" fill="#5a3825" stroke="#1a0f08" stroke-width="1.5"/>
@@ -743,7 +783,7 @@ html,body{
     </div>
 
     <!-- 椅子（席次） -->
-    <div class="obj obj-chair" data-id="3" onclick="openLocation(3)">
+    <div class="obj obj-chair" data-id="5" onclick="openLocation(5)">
       <svg viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg">
         <ellipse cx="30" cy="65" rx="22" ry="4" fill="#000" opacity="0.6"/>
         <rect x="10" y="35" width="40" height="28" rx="3" fill="#3a2030" stroke="#000" stroke-width="2"/>
@@ -758,7 +798,7 @@ html,body{
     </div>
 
     <!-- 扉 -->
-    <div class="obj obj-door" id="doorObj" data-id="4" onclick="tryEscape()">
+    <div class="obj obj-door" id="doorObj" data-id="6" onclick="tryEscape()">
       <svg viewBox="0 0 90 110" xmlns="http://www.w3.org/2000/svg">
         <rect x="4" y="4" width="82" height="102" fill="#1a0f08" stroke="#000" stroke-width="2"/>
         <rect x="8" y="8" width="74" height="94" fill="#5a3825" stroke="#1a0f08" stroke-width="1"/>
@@ -777,17 +817,16 @@ html,body{
     </div>
 
     <div class="hint-banner" id="hint">
-      <span class="em">▼</span> 室内の<span class="em">4つの場所</span>を調べて鍵を集めよ <span class="em">▼</span>
+      <span class="em">▼</span> 室内の<span class="em">6つの場所</span>を調べて鍵を集めよ <span class="em">▼</span>
     </div>
   </div>
 
-  <!-- 問題モーダル -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
       <div class="modal-header">
         <div class="modal-loc">
-          <span class="icon" id="modalIcon">☎️</span>
-          <span id="modalLoc">電話機</span>
+          <span class="icon" id="modalIcon">📺</span>
+          <span id="modalLoc">モニター</span>
           <span class="progress" id="modalProgress">Q1/2</span>
         </div>
         <button class="modal-close" onclick="closeModal()">✕</button>
@@ -807,7 +846,6 @@ html,body{
 
   <div class="key-pop" id="keyPop">🔑</div>
 
-  <!-- エンディング -->
   <div class="ending" id="ending">
     <div class="end-icon" id="endIcon">🎉</div>
     <div class="end-title" id="endTitle">脱出成功!</div>
@@ -838,6 +876,44 @@ html,body{
 const locations=[
   {
     id:0,
+    icon:'📺',
+    name:'モニター',
+    questions:[
+      {
+        scene:'モニターに「次回のオンライン会議：本日10時」と表示されている。\n──カメラの向こうで、相手はあなたの何を見ている？',
+        q:'オンライン会議で「最も避けるべき」<span class="ng">NG</span>行動はどれですか？',
+        choices:[
+          "適度にうなずきながら、カメラのレンズを見て話す",
+          "背景は壁か無地、上半身が画面中央に映るようにする",
+          "話していない時もスマホを触ったり、視線が画面外に泳ぐ",
+          "カメラから顔まで50〜70cmほど距離を取り、目線がやや上向きになる位置にPCを置く"
+        ],
+        answer:2,
+        explanation:"オンライン会議では「画面越しの相手にどう映っているか」が全て。スマホ操作・視線の泳ぎ・うつむき・腕組み・カメラから近すぎる/遠すぎるなどはNG。背景は無地か整った場所、カメラはやや見下ろさない高さに置き、レンズに目線を合わせる。話していない時こそ姿勢と表情を意識しよう。"
+      }
+    ]
+  },
+  {
+    id:1,
+    icon:'🪞',
+    name:'姿見',
+    questions:[
+      {
+        scene:'姿見の前に立つ。\n壁に貼り紙：『お辞儀の角度と視線を答えよ』\n会釈・敬礼・最敬礼──状況によって正解は変わる。',
+        q:"取引先のお客様を応接室にお迎えする時、最も適切な「角度」と「視線を落とす位置」は？",
+        choices:[
+          "15度（会釈）／視線は2m先の床",
+          "30度（敬礼）／視線は相手の膝",
+          "45度（最敬礼）／視線は相手の足元",
+          "90度（土下座）"
+        ],
+        answer:1,
+        explanation:"お辞儀は3種類：①会釈15度（すれ違い・軽い挨拶）→視線は2m先の床、②敬礼30度（一般的な挨拶・来客対応・お礼）→視線は相手の膝あたり、③最敬礼45度（深い感謝・お詫び・重要な見送り）→視線は相手の足元。来客対応や通常のビジネスシーンでは「敬礼30度」が最も使われる基本のお辞儀。背筋を伸ばし、首だけ曲げないこと。"
+      }
+    ]
+  },
+  {
+    id:2,
     icon:'☎️',
     name:'電話機',
     questions:[
@@ -856,7 +932,7 @@ const locations=[
     ]
   },
   {
-    id:1,
+    id:3,
     icon:'💻',
     name:'ノートPC',
     questions:[
@@ -887,7 +963,7 @@ const locations=[
     ]
   },
   {
-    id:2,
+    id:4,
     icon:'🗄️',
     name:'書類棚',
     questions:[
@@ -918,7 +994,7 @@ const locations=[
     ]
   },
   {
-    id:3,
+    id:5,
     icon:'🪑',
     name:'応接椅子',
     questions:[
@@ -938,14 +1014,15 @@ const locations=[
   }
 ];
 
-const TOTAL_TIME=600;
-const TOTAL_KEYS=4;
+const TOTAL_TIME=300;
+const TOTAL_KEYS=6;
+const TOTAL_QUESTIONS=8;
 let timeLeft=TOTAL_TIME;
 let timerInterval=null;
 let keysGained=0;
 let totalCorrect=0;
-let solved=[false,false,false,false];
-let locProgress=[0,0,0,0];
+let solved=[false,false,false,false,false,false];
+let locProgress=[0,0,0,0,0,0];
 let currentLocId=null;
 let currentQIndex=0;
 let answered=false;
@@ -960,14 +1037,14 @@ function startGame(){
   timeLeft=TOTAL_TIME;
   keysGained=0;
   totalCorrect=0;
-  solved=[false,false,false,false];
-  locProgress=[0,0,0,0];
+  solved=[false,false,false,false,false,false];
+  locProgress=[0,0,0,0,0,0];
   gameActive=true;
   updateHUD();
   document.querySelectorAll('.obj').forEach(el=>el.classList.remove('solved'));
   $('doorObj').classList.remove('unlocked');
   $('hint').classList.remove('unlock');
-  $('hint').innerHTML='<span class="em">▼</span> 室内の<span class="em">4つの場所</span>を調べて鍵を集めよ <span class="em">▼</span>';
+  $('hint').innerHTML='<span class="em">▼</span> 室内の<span class="em">6つの場所</span>を調べて鍵を集めよ <span class="em">▼</span>';
   startTimer();
 }
 
@@ -987,7 +1064,7 @@ function startTimer(){
 function updateHUD(){
   const m=Math.floor(timeLeft/60);
   const s=timeLeft%60;
-  $('timer').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  $('timer').textContent=String(m).padStart(1,'0')+':'+String(s).padStart(2,'0');
   $('keysCount').textContent=keysGained;
 }
 
@@ -1008,7 +1085,7 @@ function showQuestion(){
   $('modalLoc').textContent=loc.name;
   $('modalProgress').textContent=totalQ>1?'Q'+(currentQIndex+1)+'/'+totalQ:'';
   $('modalScene').innerHTML=q.scene.replace(/\n/g,'<br>');
-  $('modalQ').textContent=q.q;
+  $('modalQ').innerHTML=q.q;
 
   const ch=$('modalChoices');
   ch.innerHTML='';
@@ -1054,7 +1131,6 @@ function selectChoice(idx){
       setTimeout(()=>{
         document.querySelector('.obj[data-id="'+currentLocId+'"]').classList.add('solved');
         updateHUD();
-        // 全鍵集まったら扉を開けるようにする
         if(keysGained>=TOTAL_KEYS){
           $('doorObj').classList.add('unlocked');
           $('hint').classList.add('unlock');
@@ -1114,26 +1190,26 @@ function gameOver(success){
 
   const m=Math.floor(timeLeft/60);
   const s=timeLeft%60;
-  $('endTime').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  $('endTime').textContent=String(m).padStart(1,'0')+':'+String(s).padStart(2,'0');
   $('endKeys').textContent=keysGained+'/'+TOTAL_KEYS;
-  $('endCorrect').textContent=totalCorrect+'/6';
+  $('endCorrect').textContent=totalCorrect+'/'+TOTAL_QUESTIONS;
 
   if(success){
     $('endIcon').textContent='🎉';
     $('endTitle').textContent='脱出成功!';
     let praise;
-    if(timeLeft>=480 && totalCorrect===6)praise='伝説の新人爆誕！全問正解＆驚異のスピード脱出。君は将来の社長候補だ。';
-    else if(timeLeft>=300)praise='見事な手際！基本マナーは完璧に身についている。明日から胸を張って働こう。';
+    if(timeLeft>=180 && totalCorrect===TOTAL_QUESTIONS)praise='伝説の新人爆誕！全問正解＆驚異のスピード脱出。君は将来の社長候補だ。';
+    else if(timeLeft>=120)praise='見事な手際！基本マナーは完璧に身についている。明日から胸を張って働こう。';
     else praise='なんとか間に合った…！次はもっと余裕を持って挑戦してみよう。';
     $('endMessage').innerHTML='<p>『おめでとうございます。あなたは新卒研修を見事に突破しました。』</p><p>『明日から、本配属です。期待しています。』</p><p class="praise">── '+praise+'</p>';
   }else{
     $('endIcon').textContent='💀';
     $('endTitle').textContent='脱出失敗';
     let comment;
-    if(keysGained>=3)comment='あと一歩だった…！最後の壁を越えられなかった。リトライで完走を目指そう。';
-    else if(keysGained>=1)comment='基礎は分かっているが、抜けが多い。解説を読み返して再挑戦！';
+    if(keysGained>=4)comment='あと一歩だった…！最後の壁を越えられなかった。リトライで完走を目指そう。';
+    else if(keysGained>=2)comment='基礎は分かっているが、抜けが多い。解説を読み返して再挑戦！';
     else comment='ビジネスマナーの基礎から見直す必要がある。何度でも挑戦できる。';
-    $('endMessage').innerHTML='<p>『時間切れです。あなたは脱出できませんでした。』</p><p>『──残念ながら、内定取消です。』</p><p class="blame">── '+comment+'</p>';
+    $('endMessage').innerHTML='<p>『時間切れです。あなたは脱出できませんでした。』</p><p>『──残念ながら、研修やり直しです。』</p><p class="blame">── '+comment+'</p>';
   }
 }
 
@@ -1144,8 +1220,8 @@ function restart(){
 function shareResult(){
   const m=Math.floor(timeLeft/60);
   const s=timeLeft%60;
-  const time=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-  const text='【会議室からの脱出】鍵'+keysGained+'/'+TOTAL_KEYS+'｜正答'+totalCorrect+'/6｜残り時間'+time+'\n'+location.href;
+  const time=String(m).padStart(1,'0')+':'+String(s).padStart(2,'0');
+  const text='【会議室からの脱出】鍵'+keysGained+'/'+TOTAL_KEYS+'｜正答'+totalCorrect+'/'+TOTAL_QUESTIONS+'｜残り時間'+time+'\n'+location.href;
   if(navigator.share){
     navigator.share({title:'会議室からの脱出',text:text,url:location.href}).catch(()=>{});
   }else{
