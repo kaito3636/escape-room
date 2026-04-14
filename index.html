@@ -237,9 +237,11 @@ html,body{
   background:rgba(0,0,0,.88);
   z-index:100;
   display:none;
-  align-items:center;
+  align-items:flex-start;
   justify-content:center;
-  padding:18px;
+  padding:18px 18px 40px;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
   animation:fadeIn .3s ease;
 }
 .modal-overlay.show{display:flex}
@@ -249,8 +251,8 @@ html,body{
   border:2px solid var(--gold);
   max-width:420px;
   width:100%;
-  max-height:92vh;
-  overflow-y:auto;
+  margin-top:20px;
+  margin-bottom:40px;
   box-shadow:0 0 40px rgba(255,209,102,.3),0 12px 0 #000;
   position:relative;
   animation:modalIn .4s cubic-bezier(.2,1.5,.3,1);
@@ -298,7 +300,7 @@ html,body{
   transition:all .15s;
 }
 .modal-close:hover{background:var(--red);border-color:var(--red);color:#fff}
-.modal-body{padding:18px 18px 20px}
+.modal-body{padding:18px 18px 60px}
 .modal-scene{
   background:rgba(255,209,102,.07);
   border-left:3px solid var(--gold);
@@ -545,9 +547,126 @@ html,body{
 }
 .btn-end:active{transform:translateY(2px);box-shadow:0 2px 0 #000}
 .btn-end.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+
+/* ───── パスワードロック画面 ───── */
+.password-screen{
+  position:fixed;
+  inset:0;
+  background:#000;
+  z-index:9999;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:32px 22px;
+  text-align:center;
+}
+.password-screen.hide{display:none}
+.pw-icon{
+  font-size:60px;
+  margin-bottom:20px;
+  filter:drop-shadow(0 0 20px var(--gold));
+  animation:pwIcon 2s ease-in-out infinite;
+}
+@keyframes pwIcon{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+.pw-title{
+  font-family:'DotGothic16',monospace;
+  font-size:clamp(22px,5vw,30px);
+  color:var(--gold);
+  text-shadow:0 0 20px var(--gold-deep),2px 2px 0 #000;
+  margin-bottom:8px;
+  letter-spacing:.1em;
+}
+.pw-sub{
+  font-family:'Bungee',sans-serif;
+  font-size:10px;
+  color:var(--ink);
+  letter-spacing:.2em;
+  margin-bottom:32px;
+  opacity:.7;
+}
+.pw-box{
+  background:rgba(20,18,30,.95);
+  border:2px solid var(--gold);
+  padding:24px 22px;
+  max-width:340px;
+  width:100%;
+  box-shadow:0 0 30px rgba(255,209,102,.2),0 8px 0 #000;
+}
+.pw-label{
+  font-family:'DotGothic16',monospace;
+  font-size:12px;
+  color:var(--ink);
+  margin-bottom:14px;
+  line-height:1.7;
+}
+.pw-input{
+  width:100%;
+  background:#000;
+  border:2px solid var(--gold);
+  color:var(--gold);
+  padding:14px 16px;
+  font-family:'DotGothic16',monospace;
+  font-size:18px;
+  letter-spacing:.2em;
+  text-align:center;
+  margin-bottom:14px;
+  outline:none;
+  text-transform:uppercase;
+}
+.pw-input:focus{
+  box-shadow:0 0 16px rgba(255,209,102,.5);
+}
+.pw-input.error{
+  border-color:var(--red);
+  color:var(--red);
+  animation:wrongShake .4s;
+}
+.pw-btn{
+  width:100%;
+  background:linear-gradient(180deg,var(--gold) 0%,var(--gold-deep) 100%);
+  color:#000;
+  border:3px solid #000;
+  padding:14px;
+  font-family:'Bungee',sans-serif;
+  font-size:14px;
+  letter-spacing:.12em;
+  cursor:pointer;
+  box-shadow:0 4px 0 #000;
+  transition:all .1s;
+}
+.pw-btn:active{
+  transform:translateY(2px);
+  box-shadow:0 2px 0 #000;
+}
+.pw-error{
+  display:none;
+  margin-top:12px;
+  font-family:'DotGothic16',monospace;
+  font-size:11px;
+  color:var(--red);
+}
+.pw-error.show{display:block}
 </style>
 </head>
 <body>
+
+<!-- ───── パスワードロック画面 ───── -->
+<div class="password-screen" id="passwordScreen">
+  <div class="pw-icon">🔒</div>
+  <div class="pw-title">ACCESS LOCKED</div>
+  <div class="pw-sub">RESTRICTED AREA</div>
+  <div class="pw-box">
+    <div class="pw-label">この研修コンテンツは<br>関係者限定です。<br>合言葉を入力してください。</div>
+    <input type="password" class="pw-input" id="pwInput" placeholder="PASSWORD" autocomplete="off" onkeypress="if(event.key==='Enter')checkPassword()">
+    <button class="pw-btn" onclick="checkPassword()">UNLOCK →</button>
+    <div class="pw-error" id="pwError">✗ 合言葉が違います</div>
+  </div>
+</div>
+
 <div class="app">
 
   <div class="opening" id="opening">
@@ -1217,6 +1336,21 @@ function restart(){
   startGame();
 }
 
+function checkPassword(){
+  const input=document.getElementById('pwInput');
+  const error=document.getElementById('pwError');
+  const val=input.value.trim().toUpperCase();
+  if(val==='IQVIA'){
+    document.getElementById('passwordScreen').classList.add('hide');
+  }else{
+    input.classList.add('error');
+    error.classList.add('show');
+    setTimeout(()=>{
+      input.classList.remove('error');
+    },500);
+  }
+}
+
 function shareResult(){
   const m=Math.floor(timeLeft/60);
   const s=timeLeft%60;
@@ -1230,6 +1364,13 @@ function shareResult(){
     });
   }
 }
+
+window.addEventListener('DOMContentLoaded',()=>{
+  setTimeout(()=>{
+    const pw=document.getElementById('pwInput');
+    if(pw)pw.focus();
+  },300);
+});
 </script>
 </body>
 </html>
